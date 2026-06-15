@@ -1,0 +1,1094 @@
+[
+    {
+        "encounter_id": "ENC0280",
+        "image_ids": [
+            "IMG_ENC0280_0001.jpg"
+        ],
+        "query_title_en": "The injury has been recovered for a year, but always look like this. Can I get some help?",
+        "query_title_zh": "伤愈一年了，就一直这个样子，求助。",
+        "query_content_en": "I am a 22 years old male. At around July, 2012. I injured right below the knee, then it had form a scar and the scar was peeling. Whenever I squat, the scar would peel off. It took a while to recover, and it has been looking like this and itching eversince. I have check it checked out at two facilities.",
+        "query_content_zh": "本人男，22岁，2012年7月份左右，膝盖下一点摔坏了，之后结痂，又撕开，没办法一蹲下就撕开，后来过了好久愈合了，之后就一直这样，发痒，去看过两家"
+    },
+    {
+        "encounter_id": "ENC0281",
+        "image_ids": [
+            "IMG_ENC0281_0001.jpg"
+        ],
+        "query_title_en": "Fell off my bike a few days ago. Bought ointment and applied it myself.",
+        "query_title_zh": "前几天骑车摔伤。自己买了药膏涂。",
+        "query_content_en": "Not sure what to do. Should I wrap it in gauze? I've heard it heals slower with gauze. Also, what medication should I apply?",
+        "query_content_zh": "不知道要怎么办。要不要包纱布？听说包纱布好得慢。还有，需要涂什么药？"
+    },
+    {
+        "encounter_id": "ENC0282",
+        "image_ids": [
+            "IMG_ENC0282_0001.jpg"
+        ],
+        "query_title_en": "Can someone tell me if this condition comes with inflammation.",
+        "query_title_zh": "请教我这种情况有炎症吗",
+        "query_content_en": "The treated wound has already form a scar. But I dont know what is at the boarder of the wound.",
+        "query_content_zh": "伤口处理过已经结巴了，但边上不知道是什么"
+    },
+    {
+        "encounter_id": "ENC0283",
+        "image_ids": [
+            "IMG_ENC0283_0001.jpg"
+        ],
+        "query_title_en": "Does this cut need stitches?",
+        "query_title_zh": "这种口子要缝针么",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0284",
+        "image_ids": [
+            "IMG_ENC0284_0001.jpg"
+        ],
+        "query_title_en": "Experts, please come quickly!",
+        "query_title_zh": "大神们快来！",
+        "query_content_en": "Fell off my bike a few weeks ago. After scabbing, it got infected. Now the scab is off, and it looks like this. What should I do? Urgent! Waiting for response!",
+        "query_content_zh": "前几个星期骑车摔了，结痂了之后化脓，痂撕了就这样了，该怎么办！！急！在线等！"
+    },
+    {
+        "encounter_id": "ENC0285",
+        "image_ids": [
+            "IMG_ENC0285_0001.jpg"
+        ],
+        "query_title_en": "My lower leg got injured today. Can any experts please give me some advice?",
+        "query_title_zh": "今天小腿受伤了   求大神指条明路",
+        "query_content_en": "The physician only gave me a bottle of iodine. Is there any way to make the wound heal faster?",
+        "query_content_zh": "医生就给了了瓶碘酒 有什么办法让伤口快点好啊！"
+    },
+    {
+        "encounter_id": "ENC0286",
+        "image_ids": [
+            "IMG_ENC0286_0001.jpg",
+            "IMG_ENC0286_0002.jpg"
+        ],
+        "query_title_en": "Injury from a fall hasn’t healed after a month.",
+        "query_title_zh": "摔伤，一个月了还没好",
+        "query_content_en": "Went to the hospital, but I didn't ask for stitches. Initially, the doctor used ointment and now powder for dressing, but it hasn’t healed after a month. What should I do?",
+        "query_content_zh": "去医院没要求缝针，医生开始的时候用软膏包，现在用药粉包，但是一个月了还没好，请问下这样该怎么处理啊"
+    },
+    {
+        "encounter_id": "ENC0287",
+        "image_ids": [
+            "IMG_ENC0287_0001.jpg"
+        ],
+        "query_title_en": "Trauma.",
+        "query_title_zh": "外伤",
+        "query_content_en": "The scar has been there for two months, and the stitches haven't been removed yet. Will the scar fall off on its own?",
+        "query_content_zh": "结疤两个月线还没拆，疤会自动掉吗？"
+    },
+    {
+        "encounter_id": "ENC0288",
+        "image_ids": [
+            "IMG_ENC0288_0001.jpg",
+            "IMG_ENC0288_0002.jpg"
+        ],
+        "query_title_en": "Can I get help from doctors?",
+        "query_title_zh": "请教各位医生大人",
+        "query_content_en": "My hand was injured by a hand held cutting machine for twenty days ago. It is still swollen. It is not straight when I stand, and unable to exert force. The doctor said the muscle had a deep injury, and might take a long time to heal.",
+        "query_content_zh": "我因为被手提切割机切伤已经20天了可是还肿着，站立的时候不能直，不得劲、当时医生说已经就伤到肌肉了医生说挺深的，估计还要多长时间好"
+    },
+    {
+        "encounter_id": "ENC0289",
+        "image_ids": [
+            "IMG_ENC0289_0001.jpg"
+        ],
+        "query_title_en": "It's been a month since the suture were removed, and it's still like this.",
+        "query_title_zh": "拆线一个月了还这样",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0290",
+        "image_ids": [
+            "IMG_ENC0290_0001.jpg",
+            "IMG_ENC0290_0002.jpg"
+        ],
+        "query_title_en": "Is this fine for me? Would a bandit work?",
+        "query_title_zh": "我这个不要紧吧，贴个创可贴就行了吧",
+        "query_content_en": "It is from squeezing",
+        "query_content_zh": "挤的"
+    },
+    {
+        "encounter_id": "ENC0291",
+        "image_ids": [
+            "IMG_ENC0291_0001.jpg",
+            "IMG_ENC0291_0002.jpg",
+            "IMG_ENC0291_0003.jpg"
+        ],
+        "query_title_en": "Help, I fell from a bike resulting in a wound like this. It has been two days, does it need stitches",
+        "query_title_zh": "求帮助，骑车摔了这样一个伤口，两天了，需要缝合吗？",
+        "query_content_en": "There was pus formation on the side. The wound is approximately 3-4mm deep. There was occasional bleeding for the past two days. Does it need stitches? If it does not need stitches, will it have hypertrophic scar after the wound heals?",
+        "query_content_zh": "旁边化脓了，伤口深大概3-4毫米，这两天偶尔还会流血，需不需要缝合？如果不需要，伤口好了过后会不会长肉凸起？"
+    },
+    {
+        "encounter_id": "ENC0292",
+        "image_ids": [
+            "IMG_ENC0292_0001.jpg"
+        ],
+        "query_title_en": "My fingernail got caught in a desk.",
+        "query_title_zh": "手指甲被桌子夹了。。。",
+        "query_content_en": "My finger is okay, but it feels like the middle of my nail is empty. Can I still play basketball? Will it get better?",
+        "query_content_zh": "指头还好，就感觉现在手指甲中间是空的，我还能不能打篮球，还有会不会好。。。"
+    },
+    {
+        "encounter_id": "ENC0293",
+        "image_ids": [
+            "IMG_ENC0293_0001.jpg"
+        ],
+        "query_title_en": "How many times should a minor wound be dressed?",
+        "query_title_zh": "请问一下，微型小伤口需要换几次",
+        "query_content_en": "How many times should a minor wound have its dressing changed?  It’s a small area that scabbed over but got injured again. Today, the dressing stuck to it, and the clinic told me to change it again in two days. Should I keep changing it? Please help.",
+        "query_content_zh": "请问一下，微型小伤口需要换几次药，就是一小块面积结痂后再次创伤，今天换药都跟药布粘一块了，诊所还让我两天后再换一次，到底还该换吗，请大家帮帮"
+    },
+    {
+        "encounter_id": "ENC0294",
+        "image_ids": [
+            "IMG_ENC0294_0001.jpg"
+        ],
+        "query_title_en": "I just fell and noticed the layer underneath is white. Is this the subcutaneous tissue?",
+        "query_title_zh": "刚才摔了一跤，才知道欺负下面一层是白色的，这一层是皮下组织吗？",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0295",
+        "image_ids": [
+            "IMG_ENC0295_0001.jpg",
+            "IMG_ENC0295_0002.jpg"
+        ],
+        "query_title_en": "Can an expert help me decide if I need to go to the hospital?",
+        "query_title_zh": "求大神帮忙看下 这要不要去医院",
+        "query_content_en": "This injury happened exactly a week ago. That night, after getting hurt, I immediately rinsed it with frozen Yibao. The next day, I applied red solution and disinfected it. However, the wound is on my knee, and in the past week, I’ve gone running five times. After running, yellow pus appears. I haven't let it get wet during showers, but the blood has kept coagulating, and now it has become a large piece of clotted blood. Should I continue using the red solution? I've applied it three times (yellow fluid). Should I keep using the medicine, and how long will it take to heal?",
+        "query_content_zh": "这是刚好一个礼拜前的伤了 那天晚上伤了以后我立刻用冰冻的怡宝冲 第二天用红药水 然后去消了毒 可是伤口位于膝盖 这一个礼拜我有5天在跑步 跑完步后会出黄色的浓 洗澡没有碰过水 但是血液一直凝固 现在变成了一大块凝固的血液 我还要不要继续用红药水 还有 我用这个药水涂了三次（黄色液体） 还要继续用这个药水吗 几时能好"
+    },
+    {
+        "encounter_id": "ENC0296",
+        "image_ids": [
+            "IMG_ENC0296_0001.jpg"
+        ],
+        "query_title_en": "My heel is cut, how should I treat it?",
+        "query_title_zh": "脚后跟已经被划伤求告知如何处理",
+        "query_content_en": "Should I cut it off?",
+        "query_content_zh": "要不要把它剪掉"
+    },
+    {
+        "encounter_id": "ENC0297",
+        "image_ids": [
+            "IMG_ENC0297_0001.jpg"
+        ],
+        "query_title_en": "Accidentally scratched.",
+        "query_title_zh": "不小心蹭到的",
+        "query_content_en": "It has been two days. I only put bandits to it. How should I treat it?",
+        "query_content_zh": "两天了 只贴了创可贴 要怎么处理"
+    },
+    {
+        "encounter_id": "ENC0298",
+        "image_ids": [
+            "IMG_ENC0298_0001.jpg"
+        ],
+        "query_title_en": "I didn't know how I got this wound sometime back but it ddin't get better. What should I do?",
+        "query_title_zh": "前一段时间不知道怎么搞的出来个伤口，一直不见好转，应该怎么办",
+        "query_content_en": "Here’s a picture of the wound. It doesn’t scab over at all, and once when it finally did, it started oozing pus.",
+        "query_content_zh": "上图，根本不结壳，有一次好不容易结了结果流脓"
+    },
+    {
+        "encounter_id": "ENC0299",
+        "image_ids": [
+            "IMG_ENC0299_0001.jpg",
+            "IMG_ENC0299_0002.jpg"
+        ],
+        "query_title_en": "Can an expert help me take a look? Thanks",
+        "query_title_zh": "求神医帮我看下。谢谢^ω^",
+        "query_content_en": "Cut by a bottle. How many days until the stitches can be removed?",
+        "query_content_zh": "被酒瓶割的。。几天能拆线。。"
+    },
+    {
+        "encounter_id": "ENC0300",
+        "image_ids": [
+            "IMG_ENC0300_0001.jpg"
+        ],
+        "query_title_en": "My finger was hit by the electric fan, and the tissue was everted out",
+        "query_title_zh": "手指被电扇打到，肉都翻出来了。。。",
+        "query_content_en": "I did some compression to push the tissue back inside. The outter layer had grown back together, but a lump had formed, and it is changing color. What should I do, is it infected. Pleas help.",
+        "query_content_zh": "我给摁回去了，现在外面一圈基本长上了，但是开始鼓包，还变色了。。。怎么办是不是感染了啊。。。求助大家。。。"
+    },
+    {
+        "encounter_id": "ENC0301",
+        "image_ids": [
+            "IMG_ENC0301_0001.jpg",
+            "IMG_ENC0301_0002.jpg"
+        ],
+        "query_title_en": "Is this almost healed?",
+        "query_title_zh": "请问这是快要好了吗？",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0302",
+        "image_ids": [
+            "IMG_ENC0302_0001.jpg"
+        ],
+        "query_title_en": "After removing stitches, why is the area around the wound peeling?",
+        "query_title_zh": "伤口拆线后 伤口附近怎么起皮啊",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0303",
+        "image_ids": [
+            "IMG_ENC0303_0001.jpg",
+            "IMG_ENC0303_0002.jpg"
+        ],
+        "query_title_en": "How long will this take to heal? Just scraped it this morning.",
+        "query_title_zh": "多久能好？今早刚刚擦伤的",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0304",
+        "image_ids": [
+            "IMG_ENC0304_0001.jpg"
+        ],
+        "query_title_en": "I bumped my knee and the scar that formed is now red, swollen and draining pus, what should I do?",
+        "query_title_zh": "膝盖嗑伤后结痂流脓红肿 怎么办",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0305",
+        "image_ids": [
+            "IMG_ENC0305_0001.jpg",
+            "IMG_ENC0305_0002.jpg"
+        ],
+        "query_title_en": "Fell on the cement while playing ball, the wound is quite deep.",
+        "query_title_zh": "水泥地上打球摔了一下 伤口挺深",
+        "query_content_en": "At first, the wound was white, but now, after a week of changing bandages at the school clinic, it feels like every time the bandage is removed, the edges of the scab that had started to form are ripped off again. It’s really frustrating. Should I keep going to change the bandage? This is how it looked at the beginning and how it looks now.",
+        "query_content_zh": "刚摔的时候都是白色的 现在一个礼拜了 每天去学校医务室换纱布 感觉每次都是把边缘部分刚结好的痂给撕了 很苦恼 该不该再去换纱布了？ 一开始的 现在的"
+    },
+    {
+        "encounter_id": "ENC0306",
+        "image_ids": [
+            "IMG_ENC0306_0001.jpg",
+            "IMG_ENC0306_0002.jpg",
+            "IMG_ENC0306_0003.jpg"
+        ],
+        "query_title_en": "Will it still grow nail",
+        "query_title_zh": "还会长指甲吗？",
+        "query_content_en": "I was slammed by the door pretty hard. There was bruises in the bottom half immediatly. The bruising expanded to everywhere the second and third day. The third day was very distended, and I let out some of the blood myself for three times. It then no longer appeared distended. It has been 10ish days, and it no longer hurt. However, the nail does not grow any more, and the nail is sticking to the blood underneath it, and then the nail had separate from the skin around it. I have clipped the top part of the nail that was separating from the skin. The nail on the side and on the back seems intact with the skin. My nail typically grows very quick, but this have been ten days without growth. Will it stop growing? What should I do.",
+        "query_content_zh": "被门挤了下，挤的比较重，当时就指下面那半瘀血了，第二天到第三天就全部瘀血了，第三天特别涨，然后自己放血，放了三次，不涨了，现在已经十多天了，不疼了，但是一直不长指甲，指甲和里面的瘀血紧紧的粘在一起，然后指甲前面和肉分离了，我把前面分离的指甲都剪掉了。指甲两侧和后面都没有分离的迹象。我指甲是长得特别快的，但是这个十天左右了，一直不长，会不会不长了，应该怎么办"
+    },
+    {
+        "encounter_id": "ENC0307",
+        "image_ids": [
+            "IMG_ENC0307_0001.jpg"
+        ],
+        "query_title_en": "It's been 5-6 days since the stitches were removed. Will the wound heal properly?",
+        "query_title_zh": "这个  拆线五六天了   能长住吗",
+        "query_content_en": "It feels like the scab formed because the stitches split after they were removed. Is it really healing?",
+        "query_content_zh": "感觉结甲子那里是拆线后 裂开才结的 是不是真的长住了 ？？？"
+    },
+    {
+        "encounter_id": "ENC0308",
+        "image_ids": [
+            "IMG_ENC0308_0001.jpg",
+            "IMG_ENC0308_0002.jpg"
+        ],
+        "query_title_en": "What should I do with this hole-shaped wound?",
+        "query_title_zh": "这种洞型伤口怎么办",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0309",
+        "image_ids": [
+            "IMG_ENC0309_0001.jpg"
+        ],
+        "query_title_en": "Need help.",
+        "query_title_zh": "求帮忙",
+        "query_content_en": "I scraped my knee, it healed but got infected and now there's a big blister with pus. How should I treat it?",
+        "query_content_zh": "膝盖擦伤，伤口好了后受感染，起了一个大泡，里面有浓，请问大家我该怎么处理。"
+    },
+    {
+        "encounter_id": "ENC0310",
+        "image_ids": [
+            "IMG_ENC0310_0001.jpg"
+        ],
+        "query_title_en": "Need help.",
+        "query_title_zh": "【帮帮忙】",
+        "query_content_en": "My son fell a week ago, and after scabbing on his elbow, he picked it off. Now it's like this. I applied Mupirocin, but it keeps oozing. What should I do?",
+        "query_content_zh": "我儿子一周前摔倒，肘部结疤后被他扣掉成这样了。擦的百多邦一直流水，怎么办？"
+    },
+    {
+        "encounter_id": "ENC0311",
+        "image_ids": [
+            "IMG_ENC0311_0001.jpg"
+        ],
+        "query_title_en": "It hurts after shower, and always itch. What should I do?",
+        "query_title_zh": "洗完澡就疼，还经常痒怎么办",
+        "query_content_en": "The condition has been like this ever since the fall from the vehicle. I also often feel itchiness at the border. How can I flatten the scar?",
+        "query_content_zh": "骑车时摔的现在就这样了，边上还经常痒，怎么样才能让疤变平？"
+    },
+    {
+        "encounter_id": "ENC0312",
+        "image_ids": [
+            "IMG_ENC0312_0001.jpg",
+            "IMG_ENC0312_0002.jpg"
+        ],
+        "query_title_en": "What should I do about this? Seeking for advice!",
+        "query_title_zh": "我这样该办，求助",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0313",
+        "image_ids": [
+            "IMG_ENC0313_0001.jpg"
+        ],
+        "query_title_en": "My knee area was caught by the screw on a metal door. The femur was slightly impacted and have a mild dent. How long does it take to heal?",
+        "query_title_zh": "膝盖附近被铁门上螺丝轧上，轻微碰到股骨，有稍微塌陷，多久好啊",
+        "query_content_en": "The screw was somewhat moist. The wound image below is taken 17 days post the incident. How long will it take to heal? Will I get a scar?",
+        "query_content_zh": "有点湿的那个螺丝 下图伤口已17天了。。。 多久能愈合，会留下疤么"
+    },
+    {
+        "encounter_id": "ENC0314",
+        "image_ids": [
+            "IMG_ENC0314_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "It's healed but my hand is still a bit swollen. How can I reduce the swelling?",
+        "query_content_zh": "都长好了为什么手还有点肿啊？怎样可以消肿？？"
+    },
+    {
+        "encounter_id": "ENC0315",
+        "image_ids": [
+            "IMG_ENC0315_0001.jpg"
+        ],
+        "query_title_en": "Help, my feet is having intolerable pain. My feet had been hit by a car.",
+        "query_title_zh": "救命，脚痛的受不了。脚被车撞了",
+        "query_content_en": "Help, my feet is having intolerable pain. My feet had been hit by a car, then became swollen. There was bruises in the early phase, now the bruise had been mostly resolved. It is still swollen, and I can't leave my leg down.",
+        "query_content_zh": "救命，脚痛的受不了。脚被车撞了，肿了，前期有於伤，现在散的差不多了。但还在肿，脚不能放低，一"
+    },
+    {
+        "encounter_id": "ENC0316",
+        "image_ids": [
+            "IMG_ENC0316_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "After an external injury, a blister appeared. How should I handle it to make it scab quickly?",
+        "query_content_zh": "外伤一段时间后，有水泡，现在怎么处理比较好。想快点结痂。"
+    },
+    {
+        "encounter_id": "ENC0317",
+        "image_ids": [
+            "IMG_ENC0317_0001.jpg",
+            "IMG_ENC0317_0002.jpg",
+            "IMG_ENC0317_0003.jpg"
+        ],
+        "query_title_en": "Got my finger caught in the door, initially a small bruise, but now it's spreading. What should I do?",
+        "query_title_zh": "被门挤了 ，刚开始就那么一小块后来瘀血扩散了，现在该怎么办啊",
+        "query_content_en": "I got my finger caught in a door, initially just a small bruise but now it's spread. What should I do? Any experts?",
+        "query_content_zh": "被门挤了 ，刚开始就那么一小块后来瘀血扩散了，现在该怎么办啊，有没有大佬懂的，请指教"
+    },
+    {
+        "encounter_id": "ENC0318",
+        "image_ids": [
+            "IMG_ENC0318_0001.jpg",
+            "IMG_ENC0318_0002.jpg"
+        ],
+        "query_title_en": "Can someone check if the stitches can be removed now?",
+        "query_title_zh": "大家帮忙看一下，现在可以拆线了吗，",
+        "query_content_en": "Can anyone help me check if the stitches can be removed now?",
+        "query_content_zh": "大家帮忙看一下，现在可以拆线了吗，"
+    },
+    {
+        "encounter_id": "ENC0319",
+        "image_ids": [
+            "IMG_ENC0319_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Got cut by a knife, thought it was fine, but after a few days, the wound healed with a dent. Will it scar? I'm very worried.",
+        "query_content_zh": "被刀割伤，以为没事，过了几天发现伤口愈合但是有个凹陷，会不会留疤，很担心"
+    },
+    {
+        "encounter_id": "ENC0320",
+        "image_ids": [
+            "IMG_ENC0320_0001.jpg"
+        ],
+        "query_title_en": "Can my hand still be functional after surgery?",
+        "query_title_zh": "这手手术后还能要吗？",
+        "query_content_en": "Can my hand still be functional after surgery?",
+        "query_content_zh": "这手手术后还能要吗？"
+    },
+    {
+        "encounter_id": "ENC0321",
+        "image_ids": [
+            "IMG_ENC0321_0001.jpg"
+        ],
+        "query_title_en": "I got an infection after washing out a tatto. How should I treat the pus below the scar?",
+        "query_title_zh": "洗纹身后感染了。结痂下有脓该怎么处理！",
+        "query_content_en": "I got an infection after washing out a tatto. How should I treat the pus below the scar?",
+        "query_content_zh": "洗纹身后感染了。结痂下有脓该怎么处理！"
+    },
+    {
+        "encounter_id": "ENC0322",
+        "image_ids": [
+            "IMG_ENC0322_0001.jpg"
+        ],
+        "query_title_en": "Can I ask what is happening?",
+        "query_title_zh": "请问这是怎么回事",
+        "query_content_en": "Can I ask what is happening?",
+        "query_content_zh": "请问这是怎么回事"
+    },
+    {
+        "encounter_id": "ENC0323",
+        "image_ids": [
+            "IMG_ENC0323_0001.jpg",
+            "IMG_ENC0323_0002.jpg"
+        ],
+        "query_title_en": "Even though it's just a cut on my finger, I want to know if I need to remove this piece of flesh.",
+        "query_title_zh": "虽然是破了手指头，但我想问问我这块肉需不需要割掉",
+        "query_content_en": "I slipped and grabbed onto the advertisement board, which cut my hand like this. I went to a clinic, and they said just to bandage it, but two days later, when I unwrapped it, I felt like I should have gotten stitches or had part of the skin debrided. What should I do now?",
+        "query_content_zh": "滑倒扶了下广告牌手就成这样了，先找个诊所看了下说包一下就好，两天后自己拆开看看，感觉当时就应该缝一下或者割掉，现在应该怎么处理呀"
+    },
+    {
+        "encounter_id": "ENC0324",
+        "image_ids": [
+            "IMG_ENC0324_0001.jpg"
+        ],
+        "query_title_en": "Just a question, how long does it take for this scar to come off? It is about 3mm deep.",
+        "query_title_zh": "问一下，这个结痂得多久能掉，深度差不多3毫米",
+        "query_content_en": "Just a question, how long does it take for this scar to come off? It is about 3mm deep.",
+        "query_content_zh": "问一下，这个结痂得多久能掉，深度差不多3毫米"
+    },
+    {
+        "encounter_id": "ENC0325",
+        "image_ids": [
+            "IMG_ENC0325_0001.jpg",
+            "IMG_ENC0325_0002.jpg",
+            "IMG_ENC0325_0003.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Dear medical experts, I work in maintenance and wear gloves daily. Yesterday, I had a fight with my wife, and she scratched my hand.",
+        "query_content_zh": "各位医学大佬，我干维修的每天干活都带手套，就是那种线手套，昨天和媳妇吵架，她把我手抓破了。。。"
+    },
+    {
+        "encounter_id": "ENC0326",
+        "image_ids": [
+            "IMG_ENC0326_0001.jpg",
+            "IMG_ENC0326_0002.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Kicked a rock with my big toe, it bled at the time. I trimmed some of the nail, but after a week, it's still leaking. What should I do?",
+        "query_content_zh": "脚拇指踢到石头了，当时流了血，现在剪掉一些指甲，一个星期了，怎么办各位，现在还流水"
+    },
+    {
+        "encounter_id": "ENC0327",
+        "image_ids": [
+            "IMG_ENC0327_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Can anyone help me? Fell off my electric scooter this afternoon, landed on my knee. The external injury isn’t serious but bending and walking hurt a lot. Besides an X-ray, how to tell if the knee bone is damaged?",
+        "query_content_zh": "万能的吧友能帮我看看吗？ 今天下午骑电动车摔到，膝盖着地 外伤没有太严重但是膝盖屈伸很痛，受力走路也很痛 除了拍片子如何简单判断膝盖的骨头有没有损伤呀?"
+    },
+    {
+        "encounter_id": "ENC0328",
+        "image_ids": [
+            "IMG_ENC0328_0001.jpg",
+            "IMG_ENC0328_0002.jpg",
+            "IMG_ENC0328_0003.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Injured my eye and got five stitches. It's been five days, and now there's a 2-3 cm hematoma. How long will it take to heal?",
+        "query_content_zh": "眼睛受伤，缝合5针，已经5天了，现在有个2-3cm的血肿，多久能好？"
+    },
+    {
+        "encounter_id": "ENC0329",
+        "image_ids": [
+            "IMG_ENC0329_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "My finger got poked last month. The outside has healed, but there seems to be a scab inside that's still a bit deep. It hurts when I touch something. Should I pick off the outer skin to remove the scab?",
+        "query_content_zh": "手指上个月被戳了一下，然后外面好了里面好像结痂了，那个痂一直在手指里面，好像还有点深，我这个手指戳到东西的时候会疼一下，我要把外皮挑开把痂挑出来吗"
+    },
+    {
+        "encounter_id": "ENC0330",
+        "image_ids": [
+            "IMG_ENC0330_0001.jpg"
+        ],
+        "query_title_en": "How should this be treated?",
+        "query_title_zh": "这可怎么治疗好？？",
+        "query_content_en": "How should this be treated?",
+        "query_content_zh": "这可怎么治疗好？？"
+    },
+    {
+        "encounter_id": "ENC0331",
+        "image_ids": [
+            "IMG_ENC0331_0001.jpg",
+            "IMG_ENC0331_0002.jpg"
+        ],
+        "query_title_en": "Burn",
+        "query_title_zh": "烫伤，",
+        "query_content_en": "Burn",
+        "query_content_zh": "烫伤，"
+    },
+    {
+        "encounter_id": "ENC0332",
+        "image_ids": [
+            "IMG_ENC0332_0001.jpg",
+            "IMG_ENC0332_0002.jpg"
+        ],
+        "query_title_en": "Hand injury",
+        "query_title_zh": "手破了",
+        "query_content_en": "I got injured from falling off an electric scooter. Will it leave a scar?",
+        "query_content_zh": "骑电瓶车摔伤，会留疤吗"
+    },
+    {
+        "encounter_id": "ENC0333",
+        "image_ids": [
+            "IMG_ENC0333_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "It's been a week. Does anyone know how long this wound takes to heal? The surrounding area is a bit stiff but not painful. The skin won’t peel off, right?",
+        "query_content_zh": "一个星期了，有没有哪个大佬知道这种伤口多久能好，皮不会掉吧，伤口周围有点僵硬，但是不痛"
+    },
+    {
+        "encounter_id": "ENC0334",
+        "image_ids": [
+            "IMG_ENC0334_0001.jpg",
+            "IMG_ENC0334_0002.jpg"
+        ],
+        "query_title_en": "Guys, how do I treat this? My finger got crushed by a hydraulic machine at work.",
+        "query_title_zh": "老哥们 这样个要怎么的治疗啊 在工厂上班备液压机压到手指了",
+        "query_content_en": "Guys, how do I treat this? My finger got crushed by a hydraulic machine at work.",
+        "query_content_zh": "老哥们 这样个要怎么的治疗啊 在工厂上班备液压机压到手指了"
+    },
+    {
+        "encounter_id": "ENC0335",
+        "image_ids": [
+            "IMG_ENC0335_0001.jpg"
+        ],
+        "query_title_en": "A question for everyone",
+        "query_title_zh": "问一下大家",
+        "query_content_en": "A while ago, my toe had been smashed. This past few days, it no longer swell nor hurt anymore. I just found out the nails has became like this. Should I go to the hospital to remove the nail? Will there be any problem?",
+        "query_content_zh": "我前段时间脚趾头被砸了一下，这几天消肿了也不疼了，刚刚才发现指甲变成这样了，请问我要不要去医院拔掉啊？会不会有什么问题？"
+    },
+    {
+        "encounter_id": "ENC0336",
+        "image_ids": [
+            "IMG_ENC0336_0001.jpg",
+            "IMG_ENC0336_0002.jpg",
+            "IMG_ENC0336_0003.jpg"
+        ],
+        "query_title_en": "My wound is infected",
+        "query_title_zh": "伤口感染了",
+        "query_content_en": "Picture one is taken right after the fall. The day after the fall, I painted erythromycin ointment at the scarring site, and the ointment might have caused the wound to close. The second image is taken on the fifth day. When I use a q tip to press on the wound, yellow pus will drain out from the wound. Realizing that this does not look right, I went to the hospital today and the doctor peeled off half of the scar and the other half will be peeled off tomorrow. It hurts, will it leave a scar after this is gets peel off? How many days does it take to heal?",
+        "query_content_zh": "图一是刚摔伤的图，摔伤后第二天在结痂的地方涂抹了红霉素软膏，好像就是涂抹红霉素软膏的原因导致伤口封闭了，图二是第五天的时候拍的，用棉签按压伤口会流出黄色脓液，意识到情况不对，今天去医院了医生把结的痂揭开了一半剩下的一半明天揭，挺疼的，这个揭开后会留疤吗？大约多少天能好？"
+    },
+    {
+        "encounter_id": "ENC0337",
+        "image_ids": [
+            "IMG_ENC0337_0001.jpg",
+            "IMG_ENC0337_0002.jpg"
+        ],
+        "query_title_en": "I fell, and sprayed iodine to the wound.",
+        "query_title_zh": "摔了一跤，伤口目前喷了碘伏。",
+        "query_content_en": "Is there anything else I should do?",
+        "query_content_zh": "是否还要其他处理呢"
+    },
+    {
+        "encounter_id": "ENC0338",
+        "image_ids": [
+            "IMG_ENC0338_0001.jpg"
+        ],
+        "query_title_en": "My toe got hit by the door.",
+        "query_title_zh": "脚趾被门撞到了",
+        "query_content_en": "My toe got hit by a door. Should I cut off the skin that has fallen off?",
+        "query_content_zh": "脚趾被门撞到，这层肉掉了要剪掉吗"
+    },
+    {
+        "encounter_id": "ENC0339",
+        "image_ids": [
+            "IMG_ENC0339_0001.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I got scraped by a rusty iron bar, then washed it with alkaline soap, squeezed out some blood, and disinfected it with iodine. Do I still need to get a tetanus shot?",
+        "query_content_zh": "被一个生锈的铁棒刮了一下，然后用碱皂洗了一下，挤了一下血，又拿碘酒消毒了，还需要打破伤风疫苗吗？"
+    },
+    {
+        "encounter_id": "ENC0340",
+        "image_ids": [
+            "IMG_ENC0340_0001.jpg"
+        ],
+        "query_title_en": "Seeking for the advice! What should I do with this wound?",
+        "query_title_zh": "请问一下，我这个伤口应该怎么办",
+        "query_content_en": "It's been almost a month, and it's still not healing. It seems to worsen whenever I take a bath, but I don't want to stop bathing. What should I do?",
+        "query_content_zh": "前前后后小一个月了怎么都不好，感觉一洗澡就有问题，我又不想不洗澡，请问我应该作何处理呢？"
+    },
+    {
+        "encounter_id": "ENC0341",
+        "image_ids": [
+            "IMG_ENC0341_0001.jpg",
+            "IMG_ENC0341_0002.jpg"
+        ],
+        "query_title_en": "Got it from a bicycle collision.",
+        "query_title_zh": "骑自行车互撞的",
+        "query_content_en": "Company clinic used saline and alcohol for disinfection, then applied a band-aid. Six hours later, I checked, and the wound was deep. Will it scar? Should I see a doctor tomorrow? How to handle it?",
+        "query_content_zh": "公司医务室生理盐水酒精消毒后用了个创可贴，6个小时左右我打开是这样的，伤口比较深，会留疤吗，明天需要去医院看看嘛，怎么处理"
+    },
+    {
+        "encounter_id": "ENC0342",
+        "image_ids": [
+            "IMG_ENC0342_0001.jpg",
+            "IMG_ENC0342_0002.jpg"
+        ],
+        "query_title_en": "I scraped myself when I fell while sprinting 50 meters during a fitness test.",
+        "query_title_zh": "体测50米短跑摔跤擦伤了",
+        "query_content_en": "Could any experts take a look if my wound is an infection? The school nursing room was very expensive. They charged me RMB 36 for a basic care yesterday.",
+        "query_content_zh": "大佬帮忙看看是不是感染了 学校医务室太坑了，昨天简单消毒就收了我36块钱"
+    },
+    {
+        "encounter_id": "ENC0343",
+        "image_ids": [
+            "IMG_ENC0343_0001.jpg",
+            "IMG_ENC0343_0002.jpg"
+        ],
+        "query_title_en": "My nail turned black after being hit. Will a new nail grow?",
+        "query_title_zh": "指甲被撞黑，还能长出新指甲吗？",
+        "query_content_en": "On April 17, I collided with an electric scooter, and my right ring finger was severely hit. The flesh under the nail (the part below the white area shown in the picture) partially came off but didn’t completely detach. The doctor put in three stitches. Stitches were removed on May 1. Now the nail is loose. Will a new nail grow? I'm worried about nail bed damage.",
+        "query_content_zh": "4月17号与一电动车相撞，右手无名指指头撞击严重，当时指甲下一部分肉（即图中指甲白色下面部分）掉了出来，但没有完全掉下，因此医生缝了三针，5月1号拆线，现在指甲摇摇欲坠，想问一下这种情况新指甲还能长出来吗，好担心甲床损伤"
+    },
+    {
+        "encounter_id": "ENC0344",
+        "image_ids": [
+            "IMG_ENC0344_0001.jpg"
+        ],
+        "query_title_en": "Seeking help...",
+        "query_title_zh": "求助。。。",
+        "query_content_en": "Fell while biking, disinfected it, should I put a band-aid or let it scab naturally?",
+        "query_content_zh": "骑车时摔得，已经消过毒了，贴创可贴还是让他自然结痂"
+    },
+    {
+        "encounter_id": "ENC0345",
+        "image_ids": [
+            "IMG_ENC0345_0001.jpg",
+            "IMG_ENC0345_0002.jpg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Fell off the bike, what should I do? Applied purple medicine, one wound healed, one hasn't after 3 days.",
+        "query_content_zh": "骑车摔伤大家看看怎么办，现在上的紫药水一个愈合了一个没有3天了"
+    },
+    {
+        "encounter_id": "ENC0346",
+        "image_ids": [
+            "IMG_ENC0346_0001.jpg"
+        ],
+        "query_title_en": "Burn injury on the second day, feeling a bit panicked",
+        "query_title_zh": "烫伤第二天，有点慌",
+        "query_content_en": "It seems like I got burned when I was a child, but I don't remember anything now. Is it okay to get burned like this? Shouldn't be a problem, right?",
+        "query_content_zh": "小时候好像也烫过，但现在一点印象都没有，烫成这个程度没问题吧……没吧？"
+    },
+    {
+        "encounter_id": "ENC0347",
+        "image_ids": [
+            "IMG_ENC0347_0001.jpg",
+            "IMG_ENC0347_0002.jpg"
+        ],
+        "query_title_en": "Can someone take a look if this wound is from a dog bite? Do we have anyone with exerience?",
+        "query_title_zh": "帮忙看下这个伤口是不是狗咬的，有懂行的吗",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0348",
+        "image_ids": [
+            "IMG_ENC0348_0001.jpg"
+        ],
+        "query_title_en": "Please help me take a look.",
+        "query_title_zh": "麻烦各位大佬给看看",
+        "query_content_en": "The wound on my index finger joint has not completely healed for years. It hurts slightly when I bend my finger. Can anyone help analyze what might be causing this?",
+        "query_content_zh": "食指关节处的伤口好些年了总是不能完全愈合，手指弯曲时伤口微疼，各位大佬，老哥们能帮忙分析下是怎么回事吗？"
+    },
+    {
+        "encounter_id": "ENC0349",
+        "image_ids": [
+            "IMG_ENC0349_0001.jpg",
+            "IMG_ENC0349_0002.jpg"
+        ],
+        "query_title_en": "My finger was cut by a knife, it went halfway through.",
+        "query_title_zh": "手指被刀割了，刀切下去一半",
+        "query_content_en": "How should I handle this? How long will it take to heal? It's the second day today.",
+        "query_content_zh": "我现在该怎么处理，多久可以好，今天第二天了"
+    },
+    {
+        "encounter_id": "ENC0350",
+        "image_ids": [
+            "IMG_ENC0350_0001.jpg"
+        ],
+        "query_title_en": "I have more than ten stiches after the car accident. I am creating a group chat for everyone to discuss how to get rid of scars",
+        "query_title_zh": "出车祸脸上缝了十几针，建个群大家一起交流交流怎么祛疤",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0351",
+        "image_ids": [
+            "IMG_ENC0351_0001.jpg"
+        ],
+        "query_title_en": "Friends, are there a small piece of hair puncturing the skin or is it a small scar from a scrape wound",
+        "query_title_zh": "吧友们，这个是有根小头发刺进去了还是一个小划伤的疤痕啊",
+        "query_content_en": "As mentioned above, it is on my feet. My feel was having some stabbing pain and I noticed this. I thought there was a small piece of hair and I tried squeezing it, but nothing came out",
+        "query_content_zh": "如题，脚上的，今天交上有点刺痛注意到的，以为是根小头发挤了半天没挤出来"
+    },
+    {
+        "encounter_id": "ENC0352",
+        "image_ids": [
+            "IMG_ENC0352_0001.jpg"
+        ],
+        "query_title_en": "Knife wound",
+        "query_title_zh": "刀伤，，，，，，",
+        "query_content_en": "It’s been 6 days, can any expert tell if this piece of skin is alive or dead?",
+        "query_content_zh": "6天了，有哪位大神，能看下这块皮，是活是死"
+    },
+    {
+        "encounter_id": "ENC0353",
+        "image_ids": [
+            "IMG_ENC0353_0001.jpg"
+        ],
+        "query_title_en": "This thing has been on my arm for several days, it's very itchy and I don't dare touch it.",
+        "query_title_zh": "这个东西长胳膊上好几天了，很痒，不敢动",
+        "query_content_en": "The texture is similar to a blister.",
+        "query_content_zh": "质感和水泡差不多"
+    },
+    {
+        "encounter_id": "ENC0354",
+        "image_ids": [
+            "IMG_ENC0354_0001.jpeg"
+        ],
+        "query_title_en": "My hand was scratched by a small kitten. It's a small kitten. I've already washed it with soapy water. As shown in the picture, the wound isn't very deep. Should I go get a shot for this?",
+        "query_title_zh": "手被一只小猫抓伤了，还挺小的一只小猫，已经用肥皂水洗过了，如图伤口不是很深，这样要去打针吗",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0355",
+        "image_ids": [
+            "IMG_ENC0355_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I was either bitten by my Samoyed or the leash got caught. There's no bleeding, and the wound is very small. Should I get a shot? The wound is shown in the picture. How much does the rabies vaccine cost at Shuangyu People's Hospital?",
+        "query_content_zh": "被自家萨摩耶咬到不知道还是狗绳子勒到，没流血，伤口非常的小，不知道要不要打针，，。伤口如图。双屿人民医院狂犬疫苗多少钱打完。"
+    },
+    {
+        "encounter_id": "ENC0356",
+        "image_ids": [
+            "IMG_ENC0356_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I was scratched by a cat, which caused bleeding. I have received a rabies vaccine and immunoglobulin. However, the wound was touched by something that a dog had been biting, and the dog's fur and nose also touched the wound. Is there a problem? I ate spicy food; is that an issue? The wound is shown in the picture.",
+        "query_content_zh": "我被猫抓了，流了血，打了狂犬疫苗和蛋白，被狗狗使劲挨过的东西碰着了，被狗狗的毛，鼻子碰着了伤口，有事吗？我吃了辣的，有事吗？伤口如图。"
+    },
+    {
+        "encounter_id": "ENC0357",
+        "image_ids": [
+            "IMG_ENC0357_0001.jpeg"
+        ],
+        "query_title_en": "My finger blistered after being electrocuted (as shown in the picture). What should I do?",
+        "query_title_zh": "手指被电后起泡了（如图）怎么办",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0358",
+        "image_ids": [
+            "IMG_ENC0358_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I was just licked by a few-month-old dog on my wound, as shown in the picture. Is there any issue? Please respond!! The surface of the wound is slightly coagulated and not bleeding, but it still hurts. Do I need to apply some alcohol? I washed my hands but didn’t use soap, and I applied some Betadine.",
+        "query_content_zh": "刚刚被一只几个月大的狗舔了我的伤口如图，有没有事？求回答！！伤口表面有点凝固了没有流血，但是还是很疼，用不用涂点酒精？我我去洗手过但是没有用肥皂但涂过吉尔典"
+    },
+    {
+        "encounter_id": "ENC0359",
+        "image_ids": [
+            "IMG_ENC0359_0001.jpeg"
+        ],
+        "query_title_en": "On friday, I accidently scrape my feet, wound as shown in the image. Are there any restriction? Are there anything I should not eat?  Are there any ways for it to recover quicker? The wound seems to have a large piece of tissue missing.",
+        "query_title_zh": "星期五不小心把脚刮伤了，伤口如图，要戒口吗？不能吃什麼？有什麼办法可以早点好？伤口好像没了一大块肉",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0360",
+        "image_ids": [
+            "IMG_ENC0360_0001.jpeg"
+        ],
+        "query_title_en": "Cut by a knife on the finger. It hasn't been bleeding for the third day. As shown in the picture, should I continue to bandage it with gauze or leave it open?",
+        "query_title_zh": "被刀划的手指伤口，已经第3天不流血了。如图，是应该继续用纱布包扎还是敞着？",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0361",
+        "image_ids": [
+            "IMG_ENC0361_0001.jpeg",
+            "IMG_ENC0361_0002.jpeg"
+        ],
+        "query_title_en": "The hospital diagnosed the wound as 3.5 cm. The current state of the wound is as shown in the picture. After more than seven months, can this wound be evaluated to a certain grade?",
+        "query_title_zh": "医院诊断证明伤口3.5厘米，现在伤口这个如图下所示 目前七个多月 能评上等级吗？",
+        "query_content_en": "Are the personnel in the appraisal department hospital employees or from another institution?",
+        "query_content_zh": "鉴定科室人是医院内部人员还是别的编制人员"
+    },
+    {
+        "encounter_id": "ENC0362",
+        "image_ids": [
+            "IMG_ENC0362_0001.jpeg"
+        ],
+        "query_title_en": "As the image showned, the edge of the skin was scraped, blood appeared, but the wound was not deep. I have already painted betadine, is the tetanus shot needed?",
+        "query_title_zh": "被如图所示的边边刮破了一层皮，见血了，但是伤口并不深，已经涂了络合碘，请问需要打破伤风吗？",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0363",
+        "image_ids": [
+            "IMG_ENC0363_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I woke up the day before yesterday morning with my nail missing a piece and a wound underneath, as shown in the picture. I wiped it with alcohol and kept it bandaged with a Band-Aid yesterday. What's going on, and how should I treat it?",
+        "query_content_zh": "前天早上起来就这个样子指甲缺了一块下面肉也有伤口如图。。我用酒精擦了一下昨天一只用邦迪包着。请问这是怎么回事应该怎么处理"
+    },
+    {
+        "encounter_id": "ENC0364",
+        "image_ids": [
+            "IMG_ENC0364_0001.jpeg",
+            "IMG_ENC0364_0002.jpeg",
+            "IMG_ENC0364_0003.jpeg",
+            "IMG_ENC0364_0004.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I had a burn from the day before yesterday afternoon. Now there is blister. I popped the blister this morning, as shown in the image. I spray the wound with polito now, is the wound inflamed or infected? The wound dose not hurt (minor pain when you press on it). The surrounding is slightly red",
+        "query_content_zh": "前天中午到现在烫伤的，起水泡了，今天早上水泡被弄破了（如图）现在在涂破立妥，伤口是否炎症感染？？伤口不痛（按一下周围有一点点疼） 周围轻微泛红"
+    },
+    {
+        "encounter_id": "ENC0365",
+        "image_ids": [
+            "IMG_ENC0365_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Three days ago, I was scratched by a dog, as shown in the picture. I received the first dose of the vaccine. Today, the wound hurts a bit when touched. I also have a runny nose and a sensation of something in my throat. Could this be rabies?",
+        "query_content_zh": "大前天被狗抓了一下如图。打过疫苗了（第一次打）。到今天用手摸伤口有点疼。不摸不疼。还有点流鼻子。嗓子感觉有异物感。是不是狂犬病"
+    },
+    {
+        "encounter_id": "ENC0366",
+        "image_ids": [
+            "IMG_ENC0366_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "Last night, I was bitten by my friend's Poodle. The dog has been vaccinated. The wound is as shown in the picture. Because I was drinking at the time, I forgot whether there was any bleeding. It seems like there was no bleeding from the wound. Should I be okay without getting vaccinated?",
+        "query_content_zh": "昨晚被朋友家的贵宾狗咬了，狗有打疫苗伤口如图，因为当时喝酒了，忘记了有没流血，伤口来看好像没流血，我应该可以不打疫苗吧"
+    },
+    {
+        "encounter_id": "ENC0367",
+        "image_ids": [
+            "IMG_ENC0367_0001.jpeg"
+        ],
+        "query_title_en": "How should I treat the wound, as it has some dirt in it?",
+        "query_title_zh": "求伤口处理，有脏东西",
+        "query_content_en": "Today, I was scratched by the foot pedal of an electric scooter, which lifted a large piece of skin and caused a bit of bleeding. Afterward, I disinfected it with hydrogen peroxide and iodine, but the lifted skin has already healed, with black-gray dust from the scrape trapped inside. It's now healed with the dust inside, and I can't open it up. Is this a problem? As shown in the picture, there's a gray streak.",
+        "query_content_zh": "病情描述(发病时间、主要症状等)：今天出去被电瓶车的踏脚划伤了脚，掀起了一大快皮 出了一点血 回来后用双氧水和碘酒消毒了，但是 被掀起的皮已经愈合了，皮里都是划破时染上的黑灰色的灰尘，就这样愈合在脚上了，也翻不开来，这样有关系么？如图 灰色的一条"
+    },
+    {
+        "encounter_id": "ENC0368",
+        "image_ids": [
+            "IMG_ENC0368_0001.jpeg"
+        ],
+        "query_title_en": "After popping a burn blister, I applied a moist burn ointment. A few days later, the wound became purulent. I treated the surface, but what should I do next? (as shown in the pict",
+        "query_title_zh": "烫伤水泡挑了 用湿润烧伤膏 几天后 伤口化脓把表面的处理了 现在应该怎么办 如图",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0369",
+        "image_ids": [
+            "IMG_ENC0369_0001.jpeg"
+        ],
+        "query_title_en": "This morning, I was scraped by rusty iron, resulting in the wound shown in the picture. Do I need a tetanus shot?",
+        "query_title_zh": "今天早上被带锈的铁皮刮了一下，伤口如图，请问这样的伤口要打破伤风吗？",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0370",
+        "image_ids": [
+            "IMG_ENC0370_0001.jpeg"
+        ],
+        "query_title_en": "While cooking, my arm was burned by oil, forming a blister that later broke. Can applying erythromycin ointment prevent infection? The wound is shown in the picture.",
+        "query_title_zh": "做饭时胳膊被油烫伤，起泡后皮破了，请问抹红霉素药膏能防止 感染吗？伤口如图所示",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0371",
+        "image_ids": [
+            "IMG_ENC0371_0001.jpeg"
+        ],
+        "query_title_en": "My friend's leg is bruised from a dog bite through clothing. What should we do?",
+        "query_title_zh": "我朋友的腿被狗咬紫了，隔着衣服，怎么办？",
+        "query_content_en": "My friend's leg is bruised from a dog bite through clothing. What should we do? Does my friend need to get vaccinated? (As shown in the picture):",
+        "query_content_zh": "我朋友的腿被狗咬紫了，隔着衣服，怎么办？\n\n要不要打疫苗？？？\n\n症状如图："
+    },
+    {
+        "encounter_id": "ENC0372",
+        "image_ids": [
+            "IMG_ENC0372_0001.jpeg"
+        ],
+        "query_title_en": "As shown in the picture, my knee was injured from a fall and I've been changing the dressing for 5 days. I applied ointment. Do I still need to wrap it with gauze? If I don't, how can I cover it with a blanket while sleeping without disturbing the wound?",
+        "query_title_zh": "如图，膝盖摔伤换药5天了，擦了药，还需要用纱布包扎吗？不包扎的话睡觉怎么盖被子呢...会弄到伤口吧",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0373",
+        "image_ids": [
+            "IMG_ENC0373_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "As shown in the picture, my thumb pad was cut and required 4 stitches. The stitches were removed after 14 days of injury, during which I continuously bandaged it and changed dressings. The wound did not turn red during dressing changes but there is swelling. Now my thumb cannot bend. Is there a problem?",
+        "query_content_zh": "如图 我大拇指肚位置被割伤，缝了4针，受伤14天拆的线，期间一直在包扎，也换过药，换药时伤口不红，但有水肿，现在大拇指不能弯曲，请问有事吗？"
+    },
+    {
+        "encounter_id": "ENC0374",
+        "image_ids": [
+            "IMG_ENC0374_0001.jpeg"
+        ],
+        "query_title_en": "I was injured 2 cm above my knee by a horizontal blow from a iron sheet. The skin wound has healed, but the area is still numb, and I can't walk normally.",
+        "query_title_zh": "膝盖上面两厘米的地方被贴片横向砸伤，皮外伤好了，伤口处还是麻木，腿不能正常走路",
+        "query_content_en": "The wound, as shown in the picture, is now surrounded by yellowish numb areas. I can't squat properly, and my leg can only bend to the extent shown in the picture. The doctor said to wait until the swelling goes down to reassess and mentioned that a local nerve might be damaged. Can someone with knowledge tell if this is serious? Will it affect my ability to walk normally? I am very worried! Thank you.",
+        "query_content_zh": "伤口如图所示，现在伤口周围发黄的地方都是麻木的，我现在腿不能正常下蹲，腿现在只能收缩到如图这种程度。医生说等消肿后再看看，说可能是局部神经断掉了。 求懂的人指点啊，这个有没有大碍 啊？会不会影响我正常的走路。甚是担心啊！谢谢"
+    },
+    {
+        "encounter_id": "ENC0375",
+        "image_ids": [
+            "IMG_ENC0375_0001.jpeg"
+        ],
+        "query_title_en": "Upon waking up, I saw a several wounds at this side of the shoulder, whys is it there? It has not heal for a few days.",
+        "query_title_zh": "一觉醒来，肩膀这边有了几道伤口，是为什么，好几天也没见好。",
+        "query_content_en": "As shown in image.",
+        "query_content_zh": "如图"
+    },
+    {
+        "encounter_id": "ENC0376",
+        "image_ids": [
+            "IMG_ENC0376_0001.jpeg",
+            "IMG_ENC0376_0002.jpeg"
+        ],
+        "query_title_en": "Right big toe as shown in the picture. The area on the right side has been hurting continuously, for no apparent reason. Seeking advice.",
+        "query_title_zh": "右脚大拇指如图。右边的位置一直在疼，不知道什么原因，求大神",
+        "query_content_en": "",
+        "query_content_zh": ""
+    },
+    {
+        "encounter_id": "ENC0377",
+        "image_ids": [
+            "IMG_ENC0377_0001.jpeg",
+            "IMG_ENC0377_0002.jpeg",
+            "IMG_ENC0377_0003.jpeg"
+        ],
+        "query_title_en": "As shown in the picture, finger scratched by a cat. Will it swell into a large lump after the wound heals?",
+        "query_title_zh": "如图，手指被猫抓伤，伤口愈合后肿大包？",
+        "query_content_en": "A few months ago, my index finger was scratched by a stray cat, breaking the skin and causing a little bleeding. It healed naturally but then formed a swollen lump. I used a needle to puncture it and squeezed out pus, after which the lump flattened. However, it swelled up again shortly after. Now, months later, when I tried using a needle again, nothing came out.",
+        "query_content_zh": "几个月前，我的食指被一只流浪猫抓到，破了皮，流了一点点血，自然愈合后，肿了包，我用针扎，挤出了脓，包包扁了，不久后有肿了。几个月后，就是现在，我再用针扎，结果啥也没挤出来。"
+    },
+    {
+        "encounter_id": "ENC0378",
+        "image_ids": [
+            "IMG_ENC0378_0001.jpeg"
+        ],
+        "query_title_en": "Can this wound be washed with water now?",
+        "query_title_zh": "这种伤口可以洗澡了吗？",
+        "query_content_en": "As shown in the picture",
+        "query_content_zh": "如图所示"
+    },
+    {
+        "encounter_id": "ENC0379",
+        "image_ids": [
+            "IMG_ENC0379_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "How to prevent small wound from inflammation? I scratched my palm yesterday when riding my bike, and I disinfected it with medcation upon returning, and did some basic wrapping. This morning, I saw blood when I open the wrapping gauze, which means it continued to bleed after wrapping. The hand looks like this on the image. Question, will it become inflamed? How should I prevent it?",
+        "query_content_zh": "怎么防止小伤口发严？ 昨天骑车擦破了手掌，回来就涂了下消毒药水，进行了简单的包扎，今天早上起来打开一看那个包扎的纱布有血，说明包了后还有流血，现在手是这样的（如图）请问，会不会发炎啊？怎么防止啊？"
+    },
+    {
+        "encounter_id": "ENC0380",
+        "image_ids": [
+            "IMG_ENC0380_0001.jpeg"
+        ],
+        "query_title_en": "My hand got burned by steam, as shown in the picture. Will it leave a scar?",
+        "query_title_zh": "我的手被蒸汽烫伤了(如图)，请问这样会留疤吗？",
+        "query_content_en": "It's been two months already.",
+        "query_content_zh": "已经有两个月了。"
+    },
+    {
+        "encounter_id": "ENC0381",
+        "image_ids": [
+            "IMG_ENC0381_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I scraped my leg on a rusty railing while playing football at 5 PM, resulting in a wound that bled. I applied iodine when I got home at 7:30 PM, as shown in the picture. Should I get a tetanus shot in this situation?",
+        "query_content_zh": "下午五点踢球钻栏杆，被栏杆划破腿，掉了层皮，出血了，栏杆上全是锈，七点半到家抹了碘酒，如图，这种情况用打破伤风吗"
+    },
+    {
+        "encounter_id": "ENC0382",
+        "image_ids": [
+            "IMG_ENC0382_0001.jpeg"
+        ],
+        "query_title_en": "I woke up with a wound on my hand after sleeping. I don't know how it happened. Could it be from something biting me, like a rat? The wound looks like this (as shown in the picture).",
+        "query_title_zh": "晚上睡一觉手上多了个伤口，不知道怎么搞的，会不会是给什么东西咬的呢？比如老鼠之类的？伤口如图",
+        "query_content_en": "I'm worried it might be a rat bite. Should I get vaccinated or something?",
+        "query_content_zh": "担心会不会是老鼠之类的咬的，要不要去打疫苗什么的"
+    },
+    {
+        "encounter_id": "ENC0383",
+        "image_ids": [
+            "IMG_ENC0383_0001.jpeg"
+        ],
+        "query_title_en": "",
+        "query_title_zh": "",
+        "query_content_en": "I was burned by an overheated handle of a cooking spoon as shown in the image. What is happening now. The wound was treated by Long Hu Jie burn remedy soluation, dead skin removed, and a band-ait was applied for a night. The wound is oozing watery drainage, and now it seemed worsened. What should I do?",
+        "query_content_zh": "被温度过高的铁柄炒菜用铲子，烫伤，如图，是怎么了，伤口用虎龙街烫伤药水处理过，去过死皮贴了一晚上创口贴，伤口在不停冒出水，现在似乎恶化了，该怎么办"
+    },
+    {
+        "encounter_id": "ENC0384",
+        "image_ids": [
+            "IMG_ENC0384_0001.jpeg"
+        ],
+        "query_title_en": "My knee injury seems to be scabbing over. It feels hot and a bit painful. Is this normal? The wound surface has dried, as shown in the picture.",
+        "query_title_zh": "膝盖摔伤好像在结痂了，有灼热感，有点痛正常吗，伤口表面已经干燥了，如图",
+        "query_content_en": "",
+        "query_content_zh": ""
+    }
+]

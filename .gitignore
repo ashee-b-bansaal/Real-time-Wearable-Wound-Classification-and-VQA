@@ -21,7 +21,6 @@ venv/
 .vscode/
 
 # Project data and generated artifacts
-osfstorage-archive (1)/
 artifacts/
 configs/*.local.*
 *.log
@@ -39,7 +38,3 @@ checkpoints/
 *.avi
 *.mov
 *.mkv
-
-/osfstorage-archive (1)
-/dataset2
-/dataset3
