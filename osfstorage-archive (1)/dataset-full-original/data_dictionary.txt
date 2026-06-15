@@ -1,0 +1,100 @@
+#anatomic_locations
+#-------------------
+abdomen 
+ankle
+arm 
+armpit 
+back 
+backofhead 
+chest 
+chin 
+ear 
+elbow 
+eyeregion 
+face 
+fingernail 
+fingers 
+fingers-interdigital 
+foot 
+foot-sole 
+forearm 
+forehead 
+groin 
+hand 
+hand-back 
+heel 
+knee 
+lips 
+lowerback 
+lowerleg 
+mouth 
+napeofneck 
+neck 
+nose 
+palm 
+scalp 
+shoulder 
+thigh 
+toenail 
+toes 
+toes-interdigital 
+tongue 
+unidentifiable 
+wrist
+
+#wound_type
+#-------------------	
+pressure	Localized damage from pressure and/or shear - usually over bony prominence
+arterial	Based on factors such as vascular assessment, medical history, wound location and onset
+venous	Skin failure related to venous hypertension, calf muscle pump insufficiency and/or venous obstruction – found in distal lower extremity.
+surgical	Examples: post surgical incisions/flaps/grafts and/or areas of dehiscence (separation/disruption of original surgical site due to edema/infection/etc.)
+diabetic	Special classification based on location, neuropathy, and pathophysiology
+traumatic	Includes skin tears, burns, traumatic injuries (MVA/GSW/etc)
+atypical	Wounds related to diagnoses that are less prevalent in clinical setting: bullous pemphigoid, pyoderma gangrenosum, etc
+unknown	
+#reference: https://ldh.la.gov/assets/medicaid/rateaudit/docs/AppropriateClassificationStaging.pdf
+
+#wound_thickness	
+#-------------------
+stage_I	Superficial, involving only the epidermal layer. Intact skin with non-blanchable erythema
+stage_II	Partial thickness affects the epidermis and may extend into the dermis
+stage_III	Full thickness, extends through the dermis and into the adipose tissues
+stage_IV	Full thickness, extends through the dermis and adipose, exposing muscle, bone, fascia, or tendon
+unstageable	Full-thickness skin and tissue loss obscured by slough or eschar; thus, the true extent of tissue damage cannot be confirmed
+not_applicable	
+#reference: https://www.ncbi.nlm.nih.gov/books/NBK482198/
+
+#tissue_color
+#-------------------	
+pink_white	Epithelial tissue: Appears pink or pearly white and wrinkles when touched. Occurs in the final stage of healing when the wound is covered by healthy epithelium.
+red_moist	Granulating tissue: Appears red and moist. Occurs when healthy tissue is formed in the remodelling phase that is well vascularised and bleeds easily.
+yellow_brown_grey	Slough tissue: Appears yellow, brown or grey. Slough is devitalised tissue made of dead cells or debris.
+hard_dry_black	Necrotic tissue: Appears hard, dry and black. Necrotic tissue is dead tissue that prevents wound healing. 
+red_granular	Hyper granulating tissue: Appears red, uneven or granular. Occurs in the proliferative phase when tissue is over grown.
+other	
+#reference: https://www.rch.org.au/rchcpg/hospital_clinical_guideline_index/Wound_assessment_and_management/
+
+#drainage_amount	
+#-------------------	
+no_exudate	No exudate present: The wound base is dry.
+scant	Scant amount of exudate present: The wound is moist but no measurable amount of exudate appears on the dressing.
+minimal	Minimal amount of exudate on the dressing: Exudate covers less than 25% of the bandage.
+moderate	Moderate amount of drainage: Wound tissue is wet, and drainage covers 25% to 75% of the bandage.
+copious	Large or copious amount of drainage: Wound tissue is filled with fluid, and exudate covers more than 75% of the bandage.
+not_applicable	
+#reference: https://www.ncbi.nlm.nih.gov/books/NBK591822/table/ch10integumentary.T.wound_assessment/
+
+#drainage_type	
+#-------------------
+sanguineous	Sanguineous: Sanguineous exudate is fresh bleeding.
+serous	Serous: Serous drainage is clear, thin, watery plasma. It’s normal during the inflammatory stage of wound healing, and small amounts are considered normal wound drainage.
+serosanguinous	Serosanguinous: Serosanguineous exudate contains serous drainage with small amounts of blood present.
+purulent	Purulent: Purulent exudate is thick and opaque. It can be tan, yellow, green, or brown in color. It is never considered normal in a wound bed, and new purulent drainage should always be reported to the health care provider.
+not_applicable	
+#reference: https://www.ncbi.nlm.nih.gov/books/NBK591822/table/ch10integumentary.T.wound_assessment/
+
+#infection
+#-------------------
+infected
+not_infected
+unclear
