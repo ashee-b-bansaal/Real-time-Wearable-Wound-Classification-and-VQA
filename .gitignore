@@ -39,3 +39,7 @@ checkpoints/
 *.avi
 *.mov
 *.mkv
+
+/osfstorage-archive (1)
+/dataset2
+/dataset3

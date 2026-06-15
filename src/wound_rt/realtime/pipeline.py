@@ -31,9 +31,21 @@ def _to_input(frame_bgr: np.ndarray, size: int = 224) -> torch.Tensor:
     return x
 
 
-def load_models(stage1_path: Path, stage2_path: Path, encoder_json: Path) -> tuple:
+def _resolve_stage1_model_name(stage1_path: Path, explicit_model_name: str | None) -> str:
+    if explicit_model_name:
+        return explicit_model_name
+    meta_path = stage1_path.parent / "stage1_model_meta.json"
+    if meta_path.exists():
+        with meta_path.open("r", encoding="utf-8") as f:
+            meta = json.load(f)
+        return str(meta.get("model_name", "mobilenet_v3_small"))
+    return "mobilenet_v3_small"
+
+
+def load_models(stage1_path: Path, stage2_path: Path, encoder_json: Path, stage1_model_name: str | None) -> tuple:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    stage1 = Stage1BinaryClassifier().to(device)
+    resolved_stage1_name = _resolve_stage1_model_name(stage1_path, stage1_model_name)
+    stage1 = Stage1BinaryClassifier(model_name=resolved_stage1_name).to(device)
     stage1.load_state_dict(torch.load(stage1_path, map_location=device))
     stage1.eval()
     with encoder_json.open("r", encoding="utf-8") as f:
@@ -48,7 +60,7 @@ def load_models(stage1_path: Path, stage2_path: Path, encoder_json: Path) -> tup
 
 def run_realtime(args: argparse.Namespace) -> None:
     stage1, stage2, inv_enc, device = load_models(
-        Path(args.stage1_model), Path(args.stage2_model), Path(args.label_encoder_json)
+        Path(args.stage1_model), Path(args.stage2_model), Path(args.label_encoder_json), args.stage1_model_name
     )
     runtime = RuntimeConfig(
         stage1_threshold=args.stage1_threshold,
@@ -155,6 +167,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run realtime wound metadata pipeline")
     parser.add_argument("--camera-index", type=int, default=0)
     parser.add_argument("--stage1-model", default="artifacts/models/stage1/stage1_best.pt")
+    parser.add_argument(
+        "--stage1-model-name",
+        default=None,
+        help=(
+            "Optional stage1 backbone (mobilenet_v3_small, resnet50, efficientnet_b0, efficientnet_b1, efficientnet_b5). "
+            "If omitted, inferred from stage1_model_meta.json when present."
+        ),
+    )
     parser.add_argument("--stage2-model", default="artifacts/models/stage2/stage2_best.pt")
     parser.add_argument("--label-encoder-json", default="artifacts/models/stage2/label_encoders.json")
     parser.add_argument("--output-jsonl", default="artifacts/realtime/live_outputs.jsonl")

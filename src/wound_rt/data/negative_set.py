@@ -63,7 +63,49 @@ def merge_public_negatives(public_dir: Path) -> pd.DataFrame:
     rows: list[dict[str, str | int]] = []
     for ext in ("*.jpg", "*.jpeg", "*.png", "*.bmp"):
         for p in public_dir.rglob(ext):
-            rows.append({"image_id": p.name, "image_path": str(p), "label": 0})
+            rows.append({"image_id": p.name, "image_path": str(p), "label": 0, "split": "train"})
+    return pd.DataFrame(rows)
+
+
+def load_dataset2_normals(dataset2_root: Path, normal_classes: list[str]) -> pd.DataFrame:
+    rows: list[dict[str, str | int]] = []
+    split_map = {"Train": "train", "Test": "valid"}
+    for split_dir, split_name in split_map.items():
+        for normal_cls in normal_classes:
+            cls_dir = dataset2_root / split_dir / normal_cls
+            if not cls_dir.exists():
+                continue
+            for ext in ("*.jpg", "*.jpeg", "*.png", "*.bmp"):
+                for p in cls_dir.rglob(ext):
+                    rows.append(
+                        {
+                            "image_id": p.name,
+                            "image_path": str(p),
+                            "label": 0,
+                            "split": split_name,
+                            "source": f"dataset2/{split_dir}/{normal_cls}",
+                        }
+                    )
+    return pd.DataFrame(rows)
+
+
+def load_negative_dirs(extra_dirs: list[Path]) -> pd.DataFrame:
+    rows: list[dict[str, str | int]] = []
+    for base_dir in extra_dirs:
+        if not base_dir.exists():
+            continue
+        split_name = "valid" if "test" in str(base_dir).lower() else "train"
+        for ext in ("*.jpg", "*.jpeg", "*.png", "*.bmp"):
+            for p in base_dir.rglob(ext):
+                rows.append(
+                    {
+                        "image_id": p.name,
+                        "image_path": str(p),
+                        "label": 0,
+                        "split": split_name,
+                        "source": str(base_dir),
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -73,29 +115,58 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--camera-index", type=int, default=0)
     parser.add_argument("--every-n-frames", type=int, default=12)
     parser.add_argument("--max-images", type=int, default=600)
+    parser.add_argument("--skip-camera-capture", action="store_true")
     parser.add_argument("--public-negatives-dir", type=Path, default=None)
+    parser.add_argument("--dataset2-root", type=Path, default=None)
+    parser.add_argument(
+        "--dataset2-normal-classes",
+        nargs="+",
+        default=["N"],
+        help="Class folders in dataset2 treated as non-wound (normal)",
+    )
+    parser.add_argument(
+        "--extra-negative-dirs",
+        nargs="+",
+        type=Path,
+        default=None,
+        help="Extra folders to include as non-wound images (e.g., dataset3/Nomal dataset2/Train/BG)",
+    )
     parser.add_argument("--manifest-out", type=Path, default=Path("artifacts/negatives/non_wound_manifest.csv"))
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    capture_df = capture_non_wound_images(
-        CaptureConfig(
-            output_dir=args.output_dir,
-            camera_index=args.camera_index,
-            every_n_frames=args.every_n_frames,
-            max_images=args.max_images,
+    dfs: list[pd.DataFrame] = []
+    if not args.skip_camera_capture:
+        capture_df = capture_non_wound_images(
+            CaptureConfig(
+                output_dir=args.output_dir,
+                camera_index=args.camera_index,
+                every_n_frames=args.every_n_frames,
+                max_images=args.max_images,
+            )
         )
-    )
-    dfs = [capture_df]
+        if not capture_df.empty:
+            capture_df = capture_df.assign(split="train", source="camera_capture")
+            dfs.append(capture_df)
+
     if args.public_negatives_dir:
         dfs.append(merge_public_negatives(args.public_negatives_dir))
+    if args.dataset2_root:
+        dfs.append(load_dataset2_normals(args.dataset2_root, args.dataset2_normal_classes))
+    if args.extra_negative_dirs:
+        dfs.append(load_negative_dirs(args.extra_negative_dirs))
+
+    if not dfs:
+        raise ValueError("No negatives collected. Use camera capture and/or provide --dataset2-root/public-negatives-dir")
 
     all_df = pd.concat(dfs, ignore_index=True).drop_duplicates(subset=["image_path"])
     args.manifest_out.parent.mkdir(parents=True, exist_ok=True)
     all_df.to_csv(args.manifest_out, index=False)
     print(f"Saved {len(all_df)} non-wound samples -> {args.manifest_out}")
+    if "split" in all_df.columns:
+        print(all_df["split"].value_counts(dropna=False).to_string())
 
 
 if __name__ == "__main__":
