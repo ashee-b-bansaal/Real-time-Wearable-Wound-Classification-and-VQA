@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wound-rt"
+version = "0.1.0"
+description = "Realtime wound classification and metadata extraction pipeline"
+requires-python = ">=3.10"
+dependencies = [
+  "albumentations>=1.4.10",
+  "numpy>=1.26.0",
+  "opencv-python>=4.10.0.84",
+  "pandas>=2.2.2",
+  "pyyaml>=6.0.2",
+  "scikit-learn>=1.5.1",
+  "torch>=2.3.1",
+  "torchvision>=0.18.1",
+  "tqdm>=4.66.4",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

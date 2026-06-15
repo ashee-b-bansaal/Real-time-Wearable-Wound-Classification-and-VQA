@@ -1,0 +1,41 @@
+# Python cache/build
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+.env
+.env.*
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+
+# Project data and generated artifacts
+osfstorage-archive (1)/
+artifacts/
+configs/*.local.*
+*.log
+*.jsonl
+
+# Model checkpoints / exports
+*.pt
+*.pth
+*.onnx
+*.engine
+checkpoints/
+
+# Media captures
+*.mp4
+*.avi
+*.mov
+*.mkv
