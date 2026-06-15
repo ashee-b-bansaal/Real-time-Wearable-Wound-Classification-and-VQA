@@ -25,6 +25,7 @@ class ManifestConfig:
     challenge_json_dir: Path
     full_json_path: Path
     image_root: Path
+    challenge_images_dir: Path
     output_dir: Path
 
 
@@ -41,8 +42,14 @@ def _norm_multi_label(value: Any) -> str:
     return str(value).strip()
 
 
-def records_from_entries(entries: list[dict[str, Any]], split_name: str, image_root: Path) -> list[dict[str, Any]]:
+def records_from_entries(
+    entries: list[dict[str, Any]],
+    split_name: str,
+    image_root: Path,
+    fallback_roots: list[Path] | None = None,
+) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    roots = [image_root] + (fallback_roots or [])
     for entry in entries:
         base_row = {
             "encounter_id": entry.get("encounter_id", ""),
@@ -53,6 +60,12 @@ def records_from_entries(entries: list[dict[str, Any]], split_name: str, image_r
         image_ids = entry.get("image_ids", [])
         for image_id in image_ids:
             p = image_root / image_id
+            if not p.exists():
+                for r in roots[1:]:
+                    cand = r / image_id
+                    if cand.exists():
+                        p = cand
+                        break
             row = dict(base_row)
             row["image_id"] = image_id
             row["image_path"] = str(p)
@@ -67,10 +80,38 @@ def build_manifests(cfg: ManifestConfig) -> dict[str, pd.DataFrame]:
     test_entries = _load_json(cfg.challenge_json_dir / "test.json")
     full_entries = _load_json(cfg.full_json_path)
 
+    challenge_roots_by_split = {
+        "train": cfg.challenge_images_dir / "images_train",
+        "valid": cfg.challenge_images_dir / "images_valid",
+        "test": cfg.challenge_images_dir / "images_test",
+    }
+    challenge_fallbacks = [cfg.image_root, cfg.challenge_images_dir / "images_train"]
+
     manifests = {
-        "train": pd.DataFrame(records_from_entries(train_entries, "train", cfg.image_root)),
-        "valid": pd.DataFrame(records_from_entries(valid_entries, "valid", cfg.image_root)),
-        "test": pd.DataFrame(records_from_entries(test_entries, "test", cfg.image_root)),
+        "train": pd.DataFrame(
+            records_from_entries(
+                train_entries,
+                "train",
+                challenge_roots_by_split["train"],
+                fallback_roots=challenge_fallbacks,
+            )
+        ),
+        "valid": pd.DataFrame(
+            records_from_entries(
+                valid_entries,
+                "valid",
+                challenge_roots_by_split["valid"],
+                fallback_roots=challenge_fallbacks,
+            )
+        ),
+        "test": pd.DataFrame(
+            records_from_entries(
+                test_entries,
+                "test",
+                challenge_roots_by_split["test"],
+                fallback_roots=challenge_fallbacks,
+            )
+        ),
         "full": pd.DataFrame(records_from_entries(full_entries, "full", cfg.image_root)),
     }
     return manifests
@@ -111,6 +152,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=Path("osfstorage-archive (1)/dataset-full-original/images_final"),
     )
+    parser.add_argument(
+        "--challenge-images-dir",
+        type=Path,
+        default=Path("osfstorage-archive (1)/dataset-challenge-mediqa-2025-wv"),
+    )
     parser.add_argument("--output-dir", type=Path, default=Path("artifacts/manifests"))
     return parser.parse_args()
 
@@ -121,6 +167,7 @@ def main() -> None:
         challenge_json_dir=args.challenge_json_dir,
         full_json_path=args.full_json_path,
         image_root=args.image_root,
+        challenge_images_dir=args.challenge_images_dir,
         output_dir=args.output_dir,
     )
     manifests = build_manifests(cfg)

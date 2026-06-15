@@ -19,12 +19,14 @@ from wound_rt.models.networks import Stage1BinaryClassifier
 def _load_wounds(train_wound_manifest: Path, valid_wound_manifest: Path | None) -> pd.DataFrame:
     train_wound = pd.read_csv(train_wound_manifest)
     train_wound = train_wound[train_wound["image_exists"] == True].copy()  # noqa: E712
+    train_wound = train_wound[train_wound["image_path"].apply(lambda p: Path(str(p)).exists())].copy()
     train_wound["label"] = 1
     train_wound["split"] = "train"
     dfs = [train_wound]
     if valid_wound_manifest and valid_wound_manifest.exists():
         valid_wound = pd.read_csv(valid_wound_manifest)
         valid_wound = valid_wound[valid_wound["image_exists"] == True].copy()  # noqa: E712
+        valid_wound = valid_wound[valid_wound["image_path"].apply(lambda p: Path(str(p)).exists())].copy()
         valid_wound["label"] = 1
         valid_wound["split"] = "valid"
         dfs.append(valid_wound)
@@ -78,6 +80,10 @@ def train(args: argparse.Namespace) -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     valid_wound = Path(args.valid_wound_manifest) if args.valid_wound_manifest else None
     train_df, val_df = read_data(Path(args.wound_manifest), valid_wound, Path(args.non_wound_manifest))
+    print("stage1 train label counts:\n", train_df["label"].value_counts().to_string())
+    print("stage1 valid label counts:\n", val_df["label"].value_counts().to_string())
+    if (val_df["label"] == 1).sum() == 0:
+        raise ValueError("Validation set has zero wound-positive samples after path checks. Rebuild manifests/extract images.")
 
     train_ds = Stage1BinaryDataset(train_df, train=True, size=args.image_size)
     val_ds = Stage1BinaryDataset(val_df, train=False, size=args.image_size)
