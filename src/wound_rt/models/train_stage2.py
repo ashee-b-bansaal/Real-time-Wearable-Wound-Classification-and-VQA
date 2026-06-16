@@ -39,6 +39,13 @@ def macro_f1_by_head(
     return scores
 
 
+def macro_f1_by_head_on_train(
+    model: torch.nn.Module, loader: DataLoader, device: torch.device
+) -> dict[str, float]:
+    # Same computation as validation F1, but on training loader for epoch diagnostics.
+    return macro_f1_by_head(model=model, loader=loader, device=device)
+
+
 def train(args: argparse.Namespace) -> None:
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -82,10 +89,16 @@ def train(args: argparse.Namespace) -> None:
             losses.append(float(loss.item()))
             pbar.set_postfix(loss=float(np.mean(losses)))
 
+        train_scores = macro_f1_by_head_on_train(model, train_loader, device=device)
+        train_macro = float(np.mean(list(train_scores.values()))) if train_scores else 0.0
         scores = macro_f1_by_head(model, valid_loader, device=device)
         macro = float(np.mean(list(scores.values()))) if scores else 0.0
-        print(f"epoch={epoch + 1} train_loss={np.mean(losses):.4f} macro_f1={macro:.4f}")
-        print("head_scores:", scores)
+        print(
+            f"epoch={epoch + 1} train_loss={np.mean(losses):.4f} "
+            f"train_macro_f1={train_macro:.4f} val_macro_f1={macro:.4f}"
+        )
+        print("train_head_f1:", train_scores)
+        print("val_head_f1:", scores)
         if macro > best_score:
             best_score = macro
             torch.save(model.state_dict(), out_dir / "stage2_best.pt")

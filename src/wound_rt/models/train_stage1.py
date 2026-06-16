@@ -86,8 +86,10 @@ def train(args: argparse.Namespace) -> None:
         raise ValueError("Validation set has zero wound-positive samples after path checks. Rebuild manifests/extract images.")
 
     train_ds = Stage1BinaryDataset(train_df, train=True, size=args.image_size)
+    train_eval_ds = Stage1BinaryDataset(train_df, train=False, size=args.image_size)
     val_ds = Stage1BinaryDataset(val_df, train=False, size=args.image_size)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=2)
+    train_eval_loader = DataLoader(train_eval_ds, batch_size=args.batch_size, shuffle=False, num_workers=2)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False, num_workers=2)
 
     model = Stage1BinaryClassifier(model_name=args.model_name).to(device)
@@ -110,13 +112,15 @@ def train(args: argparse.Namespace) -> None:
             losses.append(loss.item())
             pbar.set_postfix(loss=float(np.mean(losses)))
 
-        metrics = eval_loop(model, val_loader, device=device)
+        train_metrics = eval_loop(model, train_eval_loader, device=device)
+        val_metrics = eval_loop(model, val_loader, device=device)
         print(
             f"epoch={epoch + 1} train_loss={np.mean(losses):.4f} "
-            f"recall={metrics['recall']:.4f} precision={metrics['precision']:.4f} f1={metrics['f1']:.4f}"
+            f"train_recall={train_metrics['recall']:.4f} train_precision={train_metrics['precision']:.4f} train_f1={train_metrics['f1']:.4f} "
+            f"val_recall={val_metrics['recall']:.4f} val_precision={val_metrics['precision']:.4f} val_f1={val_metrics['f1']:.4f}"
         )
-        if metrics["f1"] > best_f1:
-            best_f1 = metrics["f1"]
+        if val_metrics["f1"] > best_f1:
+            best_f1 = val_metrics["f1"]
             torch.save(model.state_dict(), out_dir / "stage1_best.pt")
             with (out_dir / "stage1_model_meta.json").open("w", encoding="utf-8") as f:
                 json.dump({"model_name": args.model_name, "image_size": args.image_size}, f, indent=2)

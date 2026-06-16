@@ -131,10 +131,14 @@ def run_realtime(args: argparse.Namespace) -> None:
 
     prev_gray: np.ndarray | None = None
     stable_count = 0
+    non_wound_streak = 0
     fps_window = deque(maxlen=30)
     last_t = time.time()
     read_failures = 0
     printed_frame_info = False
+    last_stage2_overlay_lines: list[str] = []
+    metadata_txt_path = Path(args.metadata_txt_path)
+    metadata_txt_path.parent.mkdir(parents=True, exist_ok=True)
 
     with runtime.output_jsonl.open("a", encoding="utf-8") as out_f:
         while True:
@@ -180,6 +184,13 @@ def run_realtime(args: argparse.Namespace) -> None:
                     stable_count += 1
                 else:
                     stable_count = 0
+                if need_stage1 and is_wound is not None:
+                    if bool(is_wound):
+                        non_wound_streak = 0
+                    else:
+                        non_wound_streak += 1
+                        if non_wound_streak > args.clear_metadata_after_non_wound_frames:
+                            last_stage2_overlay_lines = []
             elif run_mode == "stage2":
                 stable_count = stable_count + 1 if q.pass_quality else 0
 
@@ -219,6 +230,34 @@ def run_realtime(args: argparse.Namespace) -> None:
                     "minor_axis_mm": dims.minor_axis_mm,
                     "px_per_mm": dims.px_per_mm,
                 }
+                with metadata_txt_path.open("a", encoding="utf-8") as meta_f:
+                    meta_f.write(
+                        f"ts={payload['timestamp_ms']} wound_prob={payload.get('wound_prob')} "
+                        f"loc={metadata['anatomic_locations']['label']} "
+                        f"type={metadata['wound_type']['label']} "
+                        f"thickness={metadata['wound_thickness']['label']} "
+                        f"tissue={metadata['tissue_color']['label']} "
+                        f"drain_amt={metadata['drainage_amount']['label']} "
+                        f"drain_type={metadata['drainage_type']['label']} "
+                        f"infection={metadata['infection']['label']} "
+                        f"dim_status={dims.status} area_mm2={dims.area_mm2}\n"
+                    )
+                last_stage2_overlay_lines = [
+                    "Stage2 metadata:",
+                    f"loc={metadata['anatomic_locations']['label']} ({metadata['anatomic_locations']['confidence']:.2f})",
+                    f"type={metadata['wound_type']['label']} ({metadata['wound_type']['confidence']:.2f})",
+                    f"thickness={metadata['wound_thickness']['label']} ({metadata['wound_thickness']['confidence']:.2f})",
+                    f"tissue={metadata['tissue_color']['label']} ({metadata['tissue_color']['confidence']:.2f})",
+                    f"drain_amt={metadata['drainage_amount']['label']} ({metadata['drainage_amount']['confidence']:.2f})",
+                    f"drain_type={metadata['drainage_type']['label']} ({metadata['drainage_type']['confidence']:.2f})",
+                    f"infection={metadata['infection']['label']} ({metadata['infection']['confidence']:.2f})",
+                    (
+                        f"dim={dims.status} area={dims.area_mm2:.1f}mm2 "
+                        f"major={dims.major_axis_mm:.1f}mm minor={dims.minor_axis_mm:.1f}mm"
+                        if dims.status == "ok"
+                        else f"dim={dims.status}"
+                    ),
+                ]
                 stable_count = 0
 
             out_f.write(json.dumps(payload) + "\n")
@@ -233,6 +272,26 @@ def run_realtime(args: argparse.Namespace) -> None:
             else:
                 status_text = f"stage2-only quality={int(q.pass_quality)} stable={stable_count}"
             cv2.putText(frame, status_text, (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            if last_stage2_overlay_lines:
+                # Draw a black panel for metadata readability.
+                line_height = 18
+                panel_pad = 10
+                panel_top = 40
+                panel_left = 12
+                panel_width = min(frame.shape[1] - 24, 900)
+                panel_height = panel_pad * 2 + line_height * len(last_stage2_overlay_lines)
+                panel_bottom = min(frame.shape[0] - 10, panel_top + panel_height)
+                cv2.rectangle(
+                    frame,
+                    (panel_left, panel_top),
+                    (panel_left + panel_width, panel_bottom),
+                    (0, 0, 0),
+                    thickness=-1,
+                )
+                y = 58
+                for line in last_stage2_overlay_lines:
+                    cv2.putText(frame, line, (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
+                    y += 18
             cv2.imshow("wound_realtime", frame)
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
@@ -283,8 +342,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stage2-model", default="artifacts/models/stage2/stage2_best.pt")
     parser.add_argument("--label-encoder-json", default="artifacts/models/stage2/label_encoders.json")
     parser.add_argument("--output-jsonl", default="artifacts/realtime/live_outputs.jsonl")
+    parser.add_argument("--metadata-txt-path", default="artifacts/realtime/metadata_events.txt")
     parser.add_argument("--image-size", type=int, default=224)
     parser.add_argument("--stage1-threshold", type=float, default=0.45)
+    parser.add_argument(
+        "--clear-metadata-after-non-wound-frames",
+        type=int,
+        default=5,
+        help="Clear metadata overlay after this many consecutive NOT WOUND frames.",
+    )
     parser.add_argument("--stable-frames-required", type=int, default=6)
     parser.add_argument("--min-laplacian-var", type=float, default=80.0)
     parser.add_argument("--min-brightness", type=float, default=35.0)
