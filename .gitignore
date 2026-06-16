@@ -21,7 +21,6 @@ venv/
 .vscode/
 
 # Project data and generated artifacts
-artifacts/
 configs/*.local.*
 *.log
 *.jsonl

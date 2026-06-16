@@ -1,0 +1,21 @@
+{
+  "stage1": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0,
+    "p50_latency_ms": 79.50115203857422,
+    "p95_latency_ms": 125.06525516509988
+  },
+  "stage2": {
+    "macro_f1": 0.1648860936231169,
+    "p50_latency_ms": 219.43402290344238,
+    "p95_latency_ms": 293.91925334930414,
+    "f1_anatomic_locations": 0.02297979797979798,
+    "f1_wound_type": 0.3076923076923077,
+    "f1_wound_thickness": 0.12978927203065135,
+    "f1_tissue_color": 0.13272727272727275,
+    "f1_drainage_amount": 0.11651917404129793,
+    "f1_drainage_type": 0.1476394849785408,
+    "f1_infection": 0.2968553459119497
+  }
+}
