@@ -19,7 +19,7 @@ from wound_rt.realtime.quality import QualityThresholds, compute_quality
 
 @dataclass(frozen=True)
 class RuntimeConfig:
-    stage1_threshold: float = 0.5
+    stage1_threshold: float = 0.45
     stable_frames_required: int = 6
     output_jsonl: Path = Path("artifacts/realtime/live_outputs.jsonl")
 
@@ -105,6 +105,12 @@ def run_realtime(args: argparse.Namespace) -> None:
     cam = cv2.VideoCapture(args.camera_index, backend_map[args.camera_backend])
     if not cam.isOpened():
         raise RuntimeError(f"Could not open camera {args.camera_index}")
+    if args.capture_width > 0:
+        cam.set(cv2.CAP_PROP_FRAME_WIDTH, args.capture_width)
+    if args.capture_height > 0:
+        cam.set(cv2.CAP_PROP_FRAME_HEIGHT, args.capture_height)
+    if args.capture_fps > 0:
+        cam.set(cv2.CAP_PROP_FPS, args.capture_fps)
     print(
         f"[realtime] camera opened: index={args.camera_index} backend={args.camera_backend} "
         f"run_mode={run_mode}"
@@ -128,6 +134,7 @@ def run_realtime(args: argparse.Namespace) -> None:
     fps_window = deque(maxlen=30)
     last_t = time.time()
     read_failures = 0
+    printed_frame_info = False
 
     with runtime.output_jsonl.open("a", encoding="utf-8") as out_f:
         while True:
@@ -145,6 +152,14 @@ def run_realtime(args: argparse.Namespace) -> None:
                 time.sleep(0.03)
                 continue
             read_failures = 0
+            if not printed_frame_info:
+                h, w = frame.shape[:2]
+                print(
+                    f"[realtime] first frame shape={w}x{h} "
+                    f"capture_props=({cam.get(cv2.CAP_PROP_FRAME_WIDTH):.0f}x"
+                    f"{cam.get(cv2.CAP_PROP_FRAME_HEIGHT):.0f}@{cam.get(cv2.CAP_PROP_FPS):.1f}fps)"
+                )
+                printed_frame_info = True
             now = time.time()
             fps_window.append(1.0 / max(1e-6, now - last_t))
             last_t = now
@@ -210,7 +225,11 @@ def run_realtime(args: argparse.Namespace) -> None:
             out_f.flush()
 
             if need_stage1 and wound_prob is not None:
-                status_text = f"wound={wound_prob:.2f} quality={int(q.pass_quality)} stable={stable_count}"
+                wound_label = "WOUND" if bool(is_wound) else "NOT WOUND"
+                status_text = (
+                    f"{wound_label} p={wound_prob:.2f} "
+                    f"thr={runtime.stage1_threshold:.2f} quality={int(q.pass_quality)} stable={stable_count}"
+                )
             else:
                 status_text = f"stage2-only quality={int(q.pass_quality)} stable={stable_count}"
             cv2.putText(frame, status_text, (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
@@ -238,6 +257,9 @@ def parse_args() -> argparse.Namespace:
         default=120,
         help="How many sequential camera read failures to tolerate before exiting.",
     )
+    parser.add_argument("--capture-width", type=int, default=1280, help="Requested camera capture width.")
+    parser.add_argument("--capture-height", type=int, default=720, help="Requested camera capture height.")
+    parser.add_argument("--capture-fps", type=int, default=30, help="Requested camera capture FPS.")
     parser.add_argument(
         "--run-mode",
         choices=["stage1", "stage2", "both"],
@@ -262,7 +284,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--label-encoder-json", default="artifacts/models/stage2/label_encoders.json")
     parser.add_argument("--output-jsonl", default="artifacts/realtime/live_outputs.jsonl")
     parser.add_argument("--image-size", type=int, default=224)
-    parser.add_argument("--stage1-threshold", type=float, default=0.5)
+    parser.add_argument("--stage1-threshold", type=float, default=0.45)
     parser.add_argument("--stable-frames-required", type=int, default=6)
     parser.add_argument("--min-laplacian-var", type=float, default=80.0)
     parser.add_argument("--min-brightness", type=float, default=35.0)
