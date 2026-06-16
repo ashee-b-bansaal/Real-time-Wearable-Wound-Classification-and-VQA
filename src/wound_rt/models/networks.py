@@ -49,16 +49,18 @@ def build_stage1_model(model_name: str) -> nn.Module:
 
 
 class Stage2MultiHeadClassifier(nn.Module):
-    def __init__(self, num_classes: dict[str, int]) -> None:
+    def __init__(self, num_classes: dict[str, int], head_dropout: float = 0.3) -> None:
         super().__init__()
         backbone = tvm.efficientnet_b0(weights=tvm.EfficientNet_B0_Weights.DEFAULT)
         in_features = backbone.classifier[-1].in_features
         backbone.classifier = nn.Identity()
         self.backbone = backbone
+        self.dropout = nn.Dropout(p=head_dropout)
         self.heads = nn.ModuleDict(
             {name: nn.Linear(in_features, n_cls) for name, n_cls in num_classes.items()}
         )
 
     def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
         feat = self.backbone(x)
+        feat = self.dropout(feat)
         return {name: head(feat) for name, head in self.heads.items()}

@@ -9,11 +9,17 @@ import pandas as pd
 import torch
 from sklearn.metrics import f1_score
 from torch.optim import AdamW
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from wound_rt.models.datasets import LabelEncoders, META_COLUMNS, Stage2MultiHeadDataset
 from wound_rt.models.networks import Stage2MultiHeadClassifier
+
+
+def set_backbone_trainable(model: Stage2MultiHeadClassifier, trainable: bool) -> None:
+    for p in model.backbone.parameters():
+        p.requires_grad = trainable
 
 
 def macro_f1_by_head(
@@ -67,12 +73,26 @@ def train(args: argparse.Namespace) -> None:
     valid_loader = DataLoader(valid_ds, batch_size=args.batch_size, shuffle=False, num_workers=2)
 
     num_classes = {col: enc.num_classes(col) for col in META_COLUMNS}
-    model = Stage2MultiHeadClassifier(num_classes=num_classes).to(device)
+    model = Stage2MultiHeadClassifier(num_classes=num_classes, head_dropout=args.head_dropout).to(device)
     opt = AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4)
-    criterion = {head: torch.nn.CrossEntropyLoss() for head in META_COLUMNS}
+    scheduler = ReduceLROnPlateau(opt, mode="max", factor=0.5, patience=2, min_lr=1e-6)
+
+    criterion: dict[str, torch.nn.Module] = {}
+    for head in META_COLUMNS:
+        labels = [enc.encode_row(row)[head] for _, row in train_df.iterrows()]
+        counts = np.bincount(labels, minlength=num_classes[head]).astype(np.float32)
+        counts = np.maximum(counts, 1.0)
+        raw_w = len(labels) / (num_classes[head] * counts)
+        weights = np.power(raw_w, args.class_weight_power)
+        weights = weights / np.mean(weights)
+        w_t = torch.tensor(weights, dtype=torch.float32, device=device)
+        criterion[head] = torch.nn.CrossEntropyLoss(weight=w_t, label_smoothing=args.label_smoothing)
 
     best_score = -1.0
+    no_improve_epochs = 0
     for epoch in range(args.epochs):
+        backbone_trainable = epoch >= args.freeze_backbone_epochs
+        set_backbone_trainable(model, trainable=backbone_trainable)
         model.train()
         losses: list[float] = []
         pbar = tqdm(train_loader, desc=f"stage2 epoch {epoch + 1}/{args.epochs}")
@@ -85,6 +105,7 @@ def train(args: argparse.Namespace) -> None:
                 loss = loss + criterion[head](out[head], target)
             opt.zero_grad()
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
             opt.step()
             losses.append(float(loss.item()))
             pbar.set_postfix(loss=float(np.mean(losses)))
@@ -95,13 +116,28 @@ def train(args: argparse.Namespace) -> None:
         macro = float(np.mean(list(scores.values()))) if scores else 0.0
         print(
             f"epoch={epoch + 1} train_loss={np.mean(losses):.4f} "
-            f"train_macro_f1={train_macro:.4f} val_macro_f1={macro:.4f}"
+            f"train_macro_f1={train_macro:.4f} val_macro_f1={macro:.4f} "
+            f"backbone_trainable={backbone_trainable}"
         )
         print("train_head_f1:", train_scores)
         print("val_head_f1:", scores)
+        scheduler.step(macro)
+        curr_lr = opt.param_groups[0]["lr"]
+        print(f"lr={curr_lr:.6g}")
         if macro > best_score:
             best_score = macro
+            no_improve_epochs = 0
             torch.save(model.state_dict(), out_dir / "stage2_best.pt")
+        else:
+            # Avoid triggering early stopping during frozen-head warmup.
+            if backbone_trainable:
+                no_improve_epochs += 1
+                if no_improve_epochs >= args.early_stopping_patience:
+                    print(
+                        f"Early stopping: no validation macro-F1 improvement for {no_improve_epochs} epochs. "
+                        f"Best val_macro_f1={best_score:.4f}"
+                    )
+                    break
 
 
 def parse_args() -> argparse.Namespace:
@@ -113,6 +149,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--epochs", type=int, default=16)
     parser.add_argument("--lr", type=float, default=2e-4)
+    parser.add_argument("--head-dropout", type=float, default=0.3)
+    parser.add_argument(
+        "--freeze-backbone-epochs",
+        type=int,
+        default=3,
+        help="Number of initial epochs to train only metadata heads (backbone frozen).",
+    )
+    parser.add_argument("--label-smoothing", type=float, default=0.05)
+    parser.add_argument("--class-weight-power", type=float, default=0.5)
+    parser.add_argument("--early-stopping-patience", type=int, default=6)
     return parser.parse_args()
 
 
