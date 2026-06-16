@@ -135,6 +135,7 @@ def run_realtime(args: argparse.Namespace) -> None:
     last_t = time.time()
     read_failures = 0
     printed_frame_info = False
+    last_stage2_overlay_lines: list[str] = []
 
     with runtime.output_jsonl.open("a", encoding="utf-8") as out_f:
         while True:
@@ -219,6 +220,22 @@ def run_realtime(args: argparse.Namespace) -> None:
                     "minor_axis_mm": dims.minor_axis_mm,
                     "px_per_mm": dims.px_per_mm,
                 }
+                last_stage2_overlay_lines = [
+                    "Stage2 metadata:",
+                    f"loc={metadata['anatomic_locations']['label']} ({metadata['anatomic_locations']['confidence']:.2f})",
+                    f"type={metadata['wound_type']['label']} ({metadata['wound_type']['confidence']:.2f})",
+                    f"thickness={metadata['wound_thickness']['label']} ({metadata['wound_thickness']['confidence']:.2f})",
+                    f"tissue={metadata['tissue_color']['label']} ({metadata['tissue_color']['confidence']:.2f})",
+                    f"drain_amt={metadata['drainage_amount']['label']} ({metadata['drainage_amount']['confidence']:.2f})",
+                    f"drain_type={metadata['drainage_type']['label']} ({metadata['drainage_type']['confidence']:.2f})",
+                    f"infection={metadata['infection']['label']} ({metadata['infection']['confidence']:.2f})",
+                    (
+                        f"dim={dims.status} area={dims.area_mm2:.1f}mm2 "
+                        f"major={dims.major_axis_mm:.1f}mm minor={dims.minor_axis_mm:.1f}mm"
+                        if dims.status == "ok"
+                        else f"dim={dims.status}"
+                    ),
+                ]
                 stable_count = 0
 
             out_f.write(json.dumps(payload) + "\n")
@@ -233,6 +250,26 @@ def run_realtime(args: argparse.Namespace) -> None:
             else:
                 status_text = f"stage2-only quality={int(q.pass_quality)} stable={stable_count}"
             cv2.putText(frame, status_text, (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            if last_stage2_overlay_lines:
+                # Draw a black panel for metadata readability.
+                line_height = 18
+                panel_pad = 10
+                panel_top = 40
+                panel_left = 12
+                panel_width = min(frame.shape[1] - 24, 900)
+                panel_height = panel_pad * 2 + line_height * len(last_stage2_overlay_lines)
+                panel_bottom = min(frame.shape[0] - 10, panel_top + panel_height)
+                cv2.rectangle(
+                    frame,
+                    (panel_left, panel_top),
+                    (panel_left + panel_width, panel_bottom),
+                    (0, 0, 0),
+                    thickness=-1,
+                )
+                y = 58
+                for line in last_stage2_overlay_lines:
+                    cv2.putText(frame, line, (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
+                    y += 18
             cv2.imshow("wound_realtime", frame)
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
