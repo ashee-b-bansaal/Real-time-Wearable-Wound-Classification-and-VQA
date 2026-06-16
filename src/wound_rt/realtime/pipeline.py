@@ -42,25 +42,41 @@ def _resolve_stage1_model_name(stage1_path: Path, explicit_model_name: str | Non
     return "mobilenet_v3_small"
 
 
-def load_models(stage1_path: Path, stage2_path: Path, encoder_json: Path, stage1_model_name: str | None) -> tuple:
+def load_models(
+    stage1_path: Path,
+    stage2_path: Path | None,
+    encoder_json: Path | None,
+    stage1_model_name: str | None,
+    stage1_only: bool,
+) -> tuple:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     resolved_stage1_name = _resolve_stage1_model_name(stage1_path, stage1_model_name)
     stage1 = Stage1BinaryClassifier(model_name=resolved_stage1_name).to(device)
     stage1.load_state_dict(torch.load(stage1_path, map_location=device))
     stage1.eval()
-    with encoder_json.open("r", encoding="utf-8") as f:
-        enc = json.load(f)
-    num_classes = {k: len(v) for k, v in enc.items()}
-    stage2 = Stage2MultiHeadClassifier(num_classes=num_classes).to(device)
-    stage2.load_state_dict(torch.load(stage2_path, map_location=device))
-    stage2.eval()
-    inv_enc = {k: {int(i): label for label, i in mapping.items()} for k, mapping in enc.items()}
+    if stage1_only:
+        stage2 = None
+        inv_enc = None
+    else:
+        if stage2_path is None or encoder_json is None:
+            raise ValueError("stage2_path and encoder_json are required unless --stage1-only is set")
+        with encoder_json.open("r", encoding="utf-8") as f:
+            enc = json.load(f)
+        num_classes = {k: len(v) for k, v in enc.items()}
+        stage2 = Stage2MultiHeadClassifier(num_classes=num_classes).to(device)
+        stage2.load_state_dict(torch.load(stage2_path, map_location=device))
+        stage2.eval()
+        inv_enc = {k: {int(i): label for label, i in mapping.items()} for k, mapping in enc.items()}
     return stage1, stage2, inv_enc, device
 
 
 def run_realtime(args: argparse.Namespace) -> None:
     stage1, stage2, inv_enc, device = load_models(
-        Path(args.stage1_model), Path(args.stage2_model), Path(args.label_encoder_json), args.stage1_model_name
+        Path(args.stage1_model),
+        None if args.stage1_only else Path(args.stage2_model),
+        None if args.stage1_only else Path(args.label_encoder_json),
+        args.stage1_model_name,
+        args.stage1_only,
     )
     runtime = RuntimeConfig(
         stage1_threshold=args.stage1_threshold,
@@ -68,9 +84,17 @@ def run_realtime(args: argparse.Namespace) -> None:
         output_jsonl=Path(args.output_jsonl),
     )
     runtime.output_jsonl.parent.mkdir(parents=True, exist_ok=True)
-    cam = cv2.VideoCapture(args.camera_index)
+    backend_map = {
+        "any": cv2.CAP_ANY,
+        "avfoundation": cv2.CAP_AVFOUNDATION,
+    }
+    cam = cv2.VideoCapture(args.camera_index, backend_map[args.camera_backend])
     if not cam.isOpened():
         raise RuntimeError(f"Could not open camera {args.camera_index}")
+    print(
+        f"[realtime] camera opened: index={args.camera_index} backend={args.camera_backend} "
+        f"stage1_only={args.stage1_only}"
+    )
 
     quality_thr = QualityThresholds(
         min_laplacian_var=args.min_laplacian_var,
@@ -89,12 +113,24 @@ def run_realtime(args: argparse.Namespace) -> None:
     stable_count = 0
     fps_window = deque(maxlen=30)
     last_t = time.time()
+    read_failures = 0
 
     with runtime.output_jsonl.open("a", encoding="utf-8") as out_f:
         while True:
             ok, frame = cam.read()
             if not ok:
-                break
+                read_failures += 1
+                if read_failures == 1:
+                    print("[realtime] warning: initial frame read failed, retrying...")
+                if read_failures >= args.max_consecutive_read_failures:
+                    print(
+                        f"[realtime] error: camera read failed {read_failures} times consecutively. "
+                        "Exiting."
+                    )
+                    break
+                time.sleep(0.03)
+                continue
+            read_failures = 0
             now = time.time()
             fps_window.append(1.0 / max(1e-6, now - last_t))
             last_t = now
@@ -127,7 +163,7 @@ def run_realtime(args: argparse.Namespace) -> None:
                 "fps_estimate": float(np.mean(fps_window)) if fps_window else 0.0,
             }
 
-            if stable_count >= runtime.stable_frames_required:
+            if (not args.stage1_only) and stable_count >= runtime.stable_frames_required:
                 with torch.no_grad():
                     meta_logits = stage2(x)
                 metadata: dict[str, dict[str, object]] = {}
@@ -166,6 +202,19 @@ def run_realtime(args: argparse.Namespace) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run realtime wound metadata pipeline")
     parser.add_argument("--camera-index", type=int, default=0)
+    parser.add_argument(
+        "--camera-backend",
+        choices=["any", "avfoundation"],
+        default="avfoundation",
+        help="Camera backend. Use avfoundation on macOS for stable device index mapping.",
+    )
+    parser.add_argument(
+        "--max-consecutive-read-failures",
+        type=int,
+        default=120,
+        help="How many sequential camera read failures to tolerate before exiting.",
+    )
+    parser.add_argument("--stage1-only", action="store_true", help="Run only wound/non-wound realtime detection.")
     parser.add_argument("--stage1-model", default="artifacts/models/stage1/stage1_best.pt")
     parser.add_argument(
         "--stage1-model-name",
