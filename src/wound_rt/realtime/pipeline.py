@@ -43,23 +43,29 @@ def _resolve_stage1_model_name(stage1_path: Path, explicit_model_name: str | Non
 
 
 def load_models(
-    stage1_path: Path,
+    stage1_path: Path | None,
     stage2_path: Path | None,
     encoder_json: Path | None,
     stage1_model_name: str | None,
-    stage1_only: bool,
+    need_stage1: bool,
+    need_stage2: bool,
 ) -> tuple:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    resolved_stage1_name = _resolve_stage1_model_name(stage1_path, stage1_model_name)
-    stage1 = Stage1BinaryClassifier(model_name=resolved_stage1_name).to(device)
-    stage1.load_state_dict(torch.load(stage1_path, map_location=device))
-    stage1.eval()
-    if stage1_only:
-        stage2 = None
-        inv_enc = None
-    else:
+    stage1 = None
+    stage2 = None
+    inv_enc = None
+
+    if need_stage1:
+        if stage1_path is None:
+            raise ValueError("stage1_path is required for run_mode=stage1 or run_mode=both")
+        resolved_stage1_name = _resolve_stage1_model_name(stage1_path, stage1_model_name)
+        stage1 = Stage1BinaryClassifier(model_name=resolved_stage1_name).to(device)
+        stage1.load_state_dict(torch.load(stage1_path, map_location=device))
+        stage1.eval()
+
+    if need_stage2:
         if stage2_path is None or encoder_json is None:
-            raise ValueError("stage2_path and encoder_json are required unless --stage1-only is set")
+            raise ValueError("stage2_path and encoder_json are required for run_mode=stage2 or run_mode=both")
         with encoder_json.open("r", encoding="utf-8") as f:
             enc = json.load(f)
         num_classes = {k: len(v) for k, v in enc.items()}
@@ -71,12 +77,20 @@ def load_models(
 
 
 def run_realtime(args: argparse.Namespace) -> None:
+    run_mode = args.run_mode
+    if args.stage1_only:
+        run_mode = "stage1"
+
+    need_stage1 = run_mode in {"stage1", "both"}
+    need_stage2 = run_mode in {"stage2", "both"}
+
     stage1, stage2, inv_enc, device = load_models(
-        Path(args.stage1_model),
-        None if args.stage1_only else Path(args.stage2_model),
-        None if args.stage1_only else Path(args.label_encoder_json),
+        Path(args.stage1_model) if need_stage1 else None,
+        Path(args.stage2_model) if need_stage2 else None,
+        Path(args.label_encoder_json) if need_stage2 else None,
         args.stage1_model_name,
-        args.stage1_only,
+        need_stage1,
+        need_stage2,
     )
     runtime = RuntimeConfig(
         stage1_threshold=args.stage1_threshold,
@@ -93,7 +107,7 @@ def run_realtime(args: argparse.Namespace) -> None:
         raise RuntimeError(f"Could not open camera {args.camera_index}")
     print(
         f"[realtime] camera opened: index={args.camera_index} backend={args.camera_backend} "
-        f"stage1_only={args.stage1_only}"
+        f"run_mode={run_mode}"
     )
 
     quality_thr = QualityThresholds(
@@ -139,16 +153,23 @@ def run_realtime(args: argparse.Namespace) -> None:
             prev_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             x = _to_input(frame, size=args.image_size).to(device)
-            with torch.no_grad():
-                wound_prob = float(torch.sigmoid(stage1(x)).item())
-            is_wound = wound_prob >= runtime.stage1_threshold
+            wound_prob: float | None = None
+            is_wound: bool | None = None
+            if need_stage1:
+                with torch.no_grad():
+                    wound_prob = float(torch.sigmoid(stage1(x)).item())
+                is_wound = wound_prob >= runtime.stage1_threshold
 
-            if is_wound and q.pass_quality:
-                stable_count += 1
-            else:
-                stable_count = 0
+            if run_mode == "both":
+                if bool(is_wound) and q.pass_quality:
+                    stable_count += 1
+                else:
+                    stable_count = 0
+            elif run_mode == "stage2":
+                stable_count = stable_count + 1 if q.pass_quality else 0
 
             payload: dict[str, object] = {
+                "run_mode": run_mode,
                 "timestamp_ms": int(now * 1000),
                 "wound_prob": wound_prob,
                 "is_wound": is_wound,
@@ -163,7 +184,7 @@ def run_realtime(args: argparse.Namespace) -> None:
                 "fps_estimate": float(np.mean(fps_window)) if fps_window else 0.0,
             }
 
-            if (not args.stage1_only) and stable_count >= runtime.stable_frames_required:
+            if need_stage2 and stable_count >= runtime.stable_frames_required:
                 with torch.no_grad():
                     meta_logits = stage2(x)
                 metadata: dict[str, dict[str, object]] = {}
@@ -188,7 +209,10 @@ def run_realtime(args: argparse.Namespace) -> None:
             out_f.write(json.dumps(payload) + "\n")
             out_f.flush()
 
-            status_text = f"wound={wound_prob:.2f} quality={int(q.pass_quality)} stable={stable_count}"
+            if need_stage1 and wound_prob is not None:
+                status_text = f"wound={wound_prob:.2f} quality={int(q.pass_quality)} stable={stable_count}"
+            else:
+                status_text = f"stage2-only quality={int(q.pass_quality)} stable={stable_count}"
             cv2.putText(frame, status_text, (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
             cv2.imshow("wound_realtime", frame)
             key = cv2.waitKey(1) & 0xFF
@@ -214,7 +238,17 @@ def parse_args() -> argparse.Namespace:
         default=120,
         help="How many sequential camera read failures to tolerate before exiting.",
     )
-    parser.add_argument("--stage1-only", action="store_true", help="Run only wound/non-wound realtime detection.")
+    parser.add_argument(
+        "--run-mode",
+        choices=["stage1", "stage2", "both"],
+        default="both",
+        help="Pipeline mode: stage1 only, stage2 only, or both stages together.",
+    )
+    parser.add_argument(
+        "--stage1-only",
+        action="store_true",
+        help="Backward-compatible alias for --run-mode stage1.",
+    )
     parser.add_argument("--stage1-model", default="artifacts/models/stage1/stage1_best.pt")
     parser.add_argument(
         "--stage1-model-name",
