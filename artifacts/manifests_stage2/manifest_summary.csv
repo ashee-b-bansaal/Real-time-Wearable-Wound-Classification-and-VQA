@@ -1,0 +1,5 @@
+split,rows,unique_encounters,image_exists_rate,manifest_path
+train,449,279,1.0,artifacts\manifests_stage2\train_manifest.csv
+valid,147,105,1.0,artifacts\manifests_stage2\valid_manifest.csv
+test,152,93,1.0,artifacts\manifests_stage2\test_manifest.csv
+full,748,477,0.0,artifacts\manifests_stage2\full_manifest.csv
