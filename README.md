@@ -80,7 +80,26 @@ python scripts/benchmark_models.py
 python scripts/run_realtime.py --camera-index 0
 ```
 
+Realtime mode options:
+
+```bash
+# Stage 1 only (wound vs non-wound)
+python scripts/run_realtime.py --run-mode stage1 --camera-index 0 --stage1-model "artifacts/models/stage1_resnet50/stage1_best.pt" --stage1-model-name resnet50
+
+# Stage 2 only (metadata only)
+python scripts/run_realtime.py --run-mode stage2 --camera-index 0 --stage2-model "artifacts/models/stage2_ds2/stage2_best.pt" --label-encoder-json "artifacts/models/stage2_ds2/label_encoders.json"
+
+# Both stages together
+python scripts/run_realtime.py --run-mode both --camera-index 0 --stage1-model "artifacts/models/stage1_resnet50/stage1_best.pt" --stage1-model-name resnet50 --stage2-model "artifacts/models/stage2_ds2/stage2_best.pt" --label-encoder-json "artifacts/models/stage2_ds2/label_encoders.json"
+```
+
 Press `q` to stop preview windows in capture/realtime modes.
+
+## Current benchmark snapshot
+
+Latest run summary: Stage 1 F1 (non-wound) = `0.9938`, Stage 1 F1 (wound) = `0.9963`, and Stage 2 average macro-F1 = `0.2765`.
+
+Overfitting note: one likely reason is that pre-existing dataset annotations were created for a broader multimodal purpose (text plus image context), so some labels are not perfectly aligned to this strictly image-only real-time wound metadata use case.
 
 ## Notes
 
