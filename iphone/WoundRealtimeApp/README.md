@@ -16,8 +16,16 @@ This folder contains the iPhone-specific runtime implementation for:
 - `Source/Networking/`: optional Nebulon client
 - `Source/Overlay/`: text sanitization and overlay formatting
 
-## Important
+## Open in Xcode
 
-This is source-first iOS code intended to be added to an Xcode iOS app target.
-It does not commit generated Xcode build outputs.
+- Project path: `iphone/WoundRealtimeApp/WoundRealtimeApp.xcodeproj`
+- Target: `WoundRealtimeApp`
+- Deployment target: iOS 17.0
+
+## Before first run
+
+1. Export CoreML models into `artifacts/mobile/` (see `docs/iphone_ondevice_setup.md`).
+2. Drag `Stage1.mlpackage` and `Stage2.mlpackage` into the Xcode project.
+3. In target signing settings, select your Apple team.
+4. Build and run on your device.
 

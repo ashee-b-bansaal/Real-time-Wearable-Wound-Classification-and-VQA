@@ -130,6 +130,8 @@ python scripts/validate_coreml_parity.py --manifest artifacts/manifests/valid_ma
 - `iphone/WoundRealtimeApp/Source/Networking/`
 - `iphone/WoundRealtimeApp/Source/Overlay/`
 
+Open this ready project in Xcode: `iphone/WoundRealtimeApp/WoundRealtimeApp.xcodeproj`
+
 Full runbook: `docs/iphone_ondevice_setup.md`
 
 ## Current benchmark snapshot
