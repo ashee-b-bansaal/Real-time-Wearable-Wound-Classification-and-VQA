@@ -38,10 +38,6 @@ checkpoints/
 *.mov
 *.mkv
 
-# iOS / Xcode generated files
-DerivedData/
-*.xcuserstate
-*.xcworkspace/xcuserdata/
-*.xcodeproj/xcuserdata/
-*.mlmodelc/
+# Optional local CoreML export bundles
 artifacts/mobile/*.mlpackage
+

@@ -6,10 +6,9 @@ This repository implements a two-stage real-time pipeline for a USB-C wearable g
 2. **Stage 2**: non-VLM wound metadata prediction
 3. **Dimensions**: marker-based wound size estimation in mm/mm^2
 
-The repo is now separated by platform-specific implementation folders:
+The repo includes a laptop wrapper folder:
 
 - `laptop/`: desktop/laptop workflow wrappers (keeps existing Python pipeline intact)
-- `iphone/`: iPhone on-device source pipeline (CoreML + Swift runtime)
 
 ## Project structure
 
@@ -105,34 +104,6 @@ python scripts/run_realtime.py --run-mode both --camera-index 0 --stage1-model "
 ```
 
 Press `q` to stop preview windows in capture/realtime modes.
-
-## iPhone on-device pipeline
-
-1) Export CoreML models:
-
-```bash
-python scripts/export_stage1_coreml.py --stage1-model artifacts/models/stage1/stage1_best.pt --output-path artifacts/mobile/Stage1.mlpackage
-python scripts/export_stage2_coreml.py --stage2-model artifacts/models/stage2_ds2/stage2_best.pt --label-encoder-json artifacts/models/stage2_ds2/label_encoders.json --output-path artifacts/mobile/Stage2.mlpackage --mobile-config-path artifacts/mobile/mobile_config.json --stage1-threshold 0.45 --nebulon-delay-sec 2.0
-```
-
-2) Run parity check:
-
-```bash
-python scripts/validate_coreml_parity.py --manifest artifacts/manifests/valid_manifest.csv --stage1-model artifacts/models/stage1/stage1_best.pt --stage1-coreml artifacts/mobile/Stage1.mlpackage --stage2-model artifacts/models/stage2_ds2/stage2_best.pt --stage2-coreml artifacts/mobile/Stage2.mlpackage --label-encoder-json artifacts/models/stage2_ds2/label_encoders.json --output-path artifacts/mobile/parity_report.json
-```
-
-3) Integrate iOS source from:
-
-- `iphone/WoundRealtimeApp/Source/App/`
-- `iphone/WoundRealtimeApp/Source/Camera/`
-- `iphone/WoundRealtimeApp/Source/Inference/`
-- `iphone/WoundRealtimeApp/Source/Dimensions/`
-- `iphone/WoundRealtimeApp/Source/Networking/`
-- `iphone/WoundRealtimeApp/Source/Overlay/`
-
-Open this ready project in Xcode: `iphone/WoundRealtimeApp/WoundRealtimeApp.xcodeproj`
-
-Full runbook: `docs/iphone_ondevice_setup.md`
 
 ## Current benchmark snapshot
 
