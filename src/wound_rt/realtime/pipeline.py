@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import time
+import urllib.error
+import urllib.request
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
@@ -40,6 +43,64 @@ def _resolve_stage1_model_name(stage1_path: Path, explicit_model_name: str | Non
             meta = json.load(f)
         return str(meta.get("model_name", "mobilenet_v3_small"))
     return "mobilenet_v3_small"
+
+
+def _build_nebulon_prompt(
+    metadata: dict[str, dict[str, object]],
+    dimensions: dict[str, object] | None,
+) -> str:
+    lines = [
+        "You are a wound-care triage assistant.",
+        "Given structured wound metadata, provide concise next medical steps.",
+        "Output 3-5 bullet points, action-oriented, no disclaimer text.",
+        "",
+        "Metadata:",
+        f"- anatomic_locations: {metadata['anatomic_locations']['label']}",
+        f"- wound_type: {metadata['wound_type']['label']}",
+        f"- wound_thickness: {metadata['wound_thickness']['label']}",
+        f"- tissue_color: {metadata['tissue_color']['label']}",
+        f"- drainage_amount: {metadata['drainage_amount']['label']}",
+        f"- drainage_type: {metadata['drainage_type']['label']}",
+        f"- infection: {metadata['infection']['label']}",
+    ]
+    if dimensions:
+        lines.extend(
+            [
+                "Dimensions:",
+                f"- status: {dimensions.get('status')}",
+                f"- area_mm2: {dimensions.get('area_mm2')}",
+                f"- major_axis_mm: {dimensions.get('major_axis_mm')}",
+                f"- minor_axis_mm: {dimensions.get('minor_axis_mm')}",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def _parse_nebulon_response(response_obj: dict[str, object]) -> str:
+    if isinstance(response_obj.get("response"), str):
+        return str(response_obj["response"]).strip()
+    msg = response_obj.get("message")
+    if isinstance(msg, dict) and isinstance(msg.get("content"), str):
+        return str(msg["content"]).strip()
+    return json.dumps(response_obj, ensure_ascii=True)
+
+
+def _call_nebulon_gpt(base_url: str, model: str, prompt: str, timeout_sec: float) -> str:
+    url = f"{base_url.rstrip('/')}/api/ollama/generate"
+    body = json.dumps({"model": model, "prompt": prompt, "stream": False}).encode("utf-8")
+    req = urllib.request.Request(
+        url=url,
+        data=body,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout_sec) as resp:
+            raw = resp.read().decode("utf-8")
+            obj = json.loads(raw)
+            return _parse_nebulon_response(obj)
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
+        return f"Nebulon request failed: {e}"
 
 
 def load_models(
@@ -137,8 +198,19 @@ def run_realtime(args: argparse.Namespace) -> None:
     read_failures = 0
     printed_frame_info = False
     last_stage2_overlay_lines: list[str] = []
+    last_nebulon_overlay_lines: list[str] = []
     metadata_txt_path = Path(args.metadata_txt_path)
     metadata_txt_path.parent.mkdir(parents=True, exist_ok=True)
+    nebulon_txt_path = Path(args.nebulon_txt_path)
+    nebulon_txt_path.parent.mkdir(parents=True, exist_ok=True)
+    nebulon_pool: concurrent.futures.ThreadPoolExecutor | None = None
+    nebulon_future: concurrent.futures.Future | None = None
+    if args.enable_nebulon_gpt:
+        nebulon_pool = concurrent.futures.ThreadPoolExecutor(max_workers=1, thread_name_prefix="nebulon")
+        print(
+            f"[realtime] Nebulon GPT enabled: base_url={args.nebulon_base_url} "
+            f"model={args.nebulon_model}"
+        )
 
     with runtime.output_jsonl.open("a", encoding="utf-8") as out_f:
         while True:
@@ -242,6 +314,16 @@ def run_realtime(args: argparse.Namespace) -> None:
                         f"infection={metadata['infection']['label']} "
                         f"dim_status={dims.status} area_mm2={dims.area_mm2}\n"
                     )
+                if args.enable_nebulon_gpt and nebulon_pool is not None:
+                    if nebulon_future is None or nebulon_future.done():
+                        prompt = _build_nebulon_prompt(payload["metadata"], payload.get("dimensions"))
+                        nebulon_future = nebulon_pool.submit(
+                            _call_nebulon_gpt,
+                            args.nebulon_base_url,
+                            args.nebulon_model,
+                            prompt,
+                            args.nebulon_timeout_sec,
+                        )
                 last_stage2_overlay_lines = [
                     "Stage2 metadata:",
                     f"loc={metadata['anatomic_locations']['label']} ({metadata['anatomic_locations']['confidence']:.2f})",
@@ -259,6 +341,18 @@ def run_realtime(args: argparse.Namespace) -> None:
                     ),
                 ]
                 stable_count = 0
+
+            if args.enable_nebulon_gpt and nebulon_future is not None and nebulon_future.done():
+                try:
+                    nebulon_text = str(nebulon_future.result()).strip()
+                except Exception as e:  # defensive
+                    nebulon_text = f"Nebulon request failed: {e}"
+                nebulon_lines_raw = [ln.strip("- ").strip() for ln in nebulon_text.splitlines() if ln.strip()]
+                preview_lines = nebulon_lines_raw[: args.nebulon_overlay_max_lines]
+                last_nebulon_overlay_lines = ["Next medical steps (Nebulon):"] + preview_lines
+                with nebulon_txt_path.open("a", encoding="utf-8") as nf:
+                    nf.write(f"ts={payload['timestamp_ms']} " + " | ".join(preview_lines) + "\n")
+                nebulon_future = None
 
             out_f.write(json.dumps(payload) + "\n")
             out_f.flush()
@@ -292,6 +386,25 @@ def run_realtime(args: argparse.Namespace) -> None:
                 for line in last_stage2_overlay_lines:
                     cv2.putText(frame, line, (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
                     y += 18
+            if last_nebulon_overlay_lines:
+                line_height = 18
+                panel_pad = 10
+                panel_left = 12
+                panel_top = max(40, frame.shape[0] - (panel_pad * 2 + line_height * len(last_nebulon_overlay_lines)) - 12)
+                panel_width = min(frame.shape[1] - 24, 980)
+                panel_height = panel_pad * 2 + line_height * len(last_nebulon_overlay_lines)
+                panel_bottom = min(frame.shape[0] - 10, panel_top + panel_height)
+                cv2.rectangle(
+                    frame,
+                    (panel_left, panel_top),
+                    (panel_left + panel_width, panel_bottom),
+                    (0, 0, 0),
+                    thickness=-1,
+                )
+                y = panel_top + panel_pad + 8
+                for line in last_nebulon_overlay_lines:
+                    cv2.putText(frame, line[:120], (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                    y += line_height
             cv2.imshow("wound_realtime", frame)
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
@@ -299,6 +412,8 @@ def run_realtime(args: argparse.Namespace) -> None:
 
     cam.release()
     cv2.destroyAllWindows()
+    if nebulon_pool is not None:
+        nebulon_pool.shutdown(wait=False, cancel_futures=False)
 
 
 def parse_args() -> argparse.Namespace:
@@ -343,6 +458,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--label-encoder-json", default="artifacts/models/stage2/label_encoders.json")
     parser.add_argument("--output-jsonl", default="artifacts/realtime/live_outputs.jsonl")
     parser.add_argument("--metadata-txt-path", default="artifacts/realtime/metadata_events.txt")
+    parser.add_argument("--enable-nebulon-gpt", action="store_true")
+    parser.add_argument("--nebulon-base-url", default="http://192.168.1.248:3000")
+    parser.add_argument("--nebulon-model", default="llama3:latest")
+    parser.add_argument("--nebulon-timeout-sec", type=float, default=12.0)
+    parser.add_argument("--nebulon-overlay-max-lines", type=int, default=5)
+    parser.add_argument("--nebulon-txt-path", default="artifacts/realtime/nebulon_steps.txt")
     parser.add_argument("--image-size", type=int, default=224)
     parser.add_argument("--stage1-threshold", type=float, default=0.45)
     parser.add_argument(
