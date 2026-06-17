@@ -27,6 +27,11 @@ def build_stage1_model(model_name: str) -> nn.Module:
         in_features = backbone.fc.in_features
         backbone.fc = nn.Linear(in_features, 1)
         return backbone
+    if name == "resnext50_32x4d":
+        backbone = tvm.resnext50_32x4d(weights=tvm.ResNeXt50_32X4D_Weights.DEFAULT)
+        in_features = backbone.fc.in_features
+        backbone.fc = nn.Linear(in_features, 1)
+        return backbone
     if name == "efficientnet_b0":
         backbone = tvm.efficientnet_b0(weights=tvm.EfficientNet_B0_Weights.DEFAULT)
         in_features = backbone.classifier[-1].in_features
@@ -44,7 +49,7 @@ def build_stage1_model(model_name: str) -> nn.Module:
         return backbone
     raise ValueError(
         f"Unsupported stage1 model '{model_name}'. "
-        "Use one of: mobilenet_v3_small, resnet50, efficientnet_b0, efficientnet_b1, efficientnet_b5."
+        "Use one of: mobilenet_v3_small, resnet50, resnext50_32x4d, efficientnet_b0, efficientnet_b1, efficientnet_b5."
     )
 
 

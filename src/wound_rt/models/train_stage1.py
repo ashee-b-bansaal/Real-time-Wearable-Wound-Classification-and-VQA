@@ -38,6 +38,13 @@ def read_data(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     wound = _load_wounds(train_wound_manifest, valid_wound_manifest)
     neg = pd.read_csv(non_wound_manifest)
+    neg_total = len(neg)
+    if "image_exists" in neg.columns:
+        neg = neg[neg["image_exists"] == True].copy()  # noqa: E712
+    neg = neg[neg["image_path"].apply(lambda p: Path(str(p)).exists())].copy()
+    neg_dropped = neg_total - len(neg)
+    if neg_dropped > 0:
+        print(f"stage1: dropped {neg_dropped} negative rows with missing image files from {non_wound_manifest}")
     if "label" not in neg.columns:
         neg["label"] = 0
     if "split" not in neg.columns:
@@ -135,7 +142,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--model-name",
         default="mobilenet_v3_small",
-        choices=["mobilenet_v3_small", "resnet50", "efficientnet_b0", "efficientnet_b1", "efficientnet_b5"],
+        choices=[
+            "mobilenet_v3_small",
+            "resnet50",
+            "resnext50_32x4d",
+            "efficientnet_b0",
+            "efficientnet_b1",
+            "efficientnet_b5",
+        ],
     )
     parser.add_argument("--image-size", type=int, default=224)
     parser.add_argument("--batch-size", type=int, default=32)

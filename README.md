@@ -9,6 +9,7 @@ This repository implements a two-stage real-time pipeline for a USB-C wearable g
 The repo includes a laptop wrapper folder:
 
 - `laptop/`: desktop/laptop workflow wrappers (keeps existing Python pipeline intact)
+- `raspberry/`: Raspberry + Hailo-specific training wrappers (separate from laptop flow)
 
 ## Project structure
 
@@ -104,6 +105,41 @@ python scripts/run_realtime.py --run-mode both --camera-index 0 --stage1-model "
 ```
 
 Press `q` to stop preview windows in capture/realtime modes.
+
+## Raspberry + Hailo Stage2 (separate)
+
+Use Raspberry-specific scripts so laptop pipeline stays untouched.
+
+Install extra backbone package:
+
+```bash
+pip install timm
+```
+
+Train with `resnext50_32x4d`:
+
+```bash
+.venv/bin/python raspberry/scripts/train_stage2.py \
+  --backbone resnext50_32x4d \
+  --output-dir artifacts/models/raspberry/stage2_resnext \
+  --export-torchscript
+```
+
+Train with one efficient family option (example `efficientformer_l1`):
+
+```bash
+.venv/bin/python raspberry/scripts/train_stage2.py \
+  --backbone efficientformer_l1 \
+  --output-dir artifacts/models/raspberry/stage2_efficientformer_l1 \
+  --export-torchscript
+```
+
+Produced files for external `.pt -> .hef` conversion:
+
+- `stage2_rpi_best.pt`
+- `stage2_rpi_scripted.pt` (when `--export-torchscript` is used)
+- `stage2_rpi_model_meta.json`
+- `label_encoders.json`
 
 ## Current benchmark snapshot
 
