@@ -10,6 +10,7 @@ The repo includes a laptop wrapper folder:
 
 - `laptop/`: desktop/laptop workflow wrappers (keeps existing Python pipeline intact)
 - `raspberry/`: Raspberry + Hailo-specific training wrappers (separate from laptop flow)
+- `android/`: Android ONNX export/runtime starter (separate from laptop + raspberry)
 
 ## Project structure
 
@@ -140,6 +141,34 @@ Produced files for external `.pt -> .hef` conversion:
 - `stage2_rpi_scripted.pt` (when `--export-torchscript` is used)
 - `stage2_rpi_model_meta.json`
 - `label_encoders.json`
+
+## Android ONNX export (separate)
+
+Install ONNX export dependency:
+
+```bash
+.venv/bin/pip install onnx
+```
+
+Export Stage1 ONNX:
+
+```bash
+.venv/bin/python scripts/export_stage1_onnx.py \
+  --stage1-model "artifacts/models/stage1_resnext50_32x4d/stage1_best.pt" \
+  --stage1-model-name "resnext50_32x4d" \
+  --output-path "artifacts/android/Stage1.onnx"
+```
+
+Export Stage2 ONNX from Raspberry Stage2 checkpoint:
+
+```bash
+.venv/bin/python scripts/export_stage2_android_onnx.py \
+  --stage2-model "artifacts/models/raspberry/stage2_efficientformer_l1/stage2_rpi_best.pt" \
+  --stage2-meta "artifacts/models/raspberry/stage2_efficientformer_l1/stage2_rpi_model_meta.json" \
+  --label-encoder-json "artifacts/models/raspberry/stage2_efficientformer_l1/label_encoders.json" \
+  --output-path "artifacts/android/Stage2.onnx" \
+  --runtime-config-out "artifacts/android/android_runtime_config.json"
+```
 
 ## Current benchmark snapshot
 
